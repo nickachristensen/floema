@@ -7,7 +7,9 @@ module.exports = merge(config, {
     mode: 'development',
     devtool: 'inline-source-map',
     devServer: {
-        writeToDisk: true
+        devMiddleware: {
+            writeToDisk: true
+        }     
     },
     output: {
         path: path.resolve(__dirname, 'public')

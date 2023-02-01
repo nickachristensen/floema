@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack -p --progress --config webpack.config.build.js",
-    "development": "webpack-serve --progress --config webpack.config.development.js",
+    "development": "webpack serve --progress --config webpack.config.development.js",
     "start": "npm run development"
   },
   "author": "Nicholas Christensen",

@@ -1,0 +1,12 @@
+{
+  "name": "floema",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack -p --progress --config webpack.config.build.js",
+    "development": "webpack-dev-server --progress --config webpack.config.development.js",
+    "start": "npm run development"
+  },
+  "author": "Nicholas Christensen",
+  "license": "ISC"
+}

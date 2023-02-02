@@ -3,14 +3,13 @@ const webpack = require('webpack')
 
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin')
 
 const IS_DEVELOPMENT = process.env.NODE_ENV === 'dev'
 
 const dirApp = path.join(__dirname, 'app')
-const dirImages = path.join(__dirname, 'images')
 const dirShared = path.join(__dirname, 'shared')
 const dirStyles = path.join(__dirname, 'styles')
-const dirVideos = path.join(__dirname, 'videos')
 const dirNode = 'node_modules'
 
 module.exports = {
@@ -21,10 +20,8 @@ module.exports = {
     resolve: {
         modules: [
             dirApp,
-            dirImages,
             dirShared,
             dirStyles,
-            dirVideos,
             dirNode
         ]
     },
@@ -37,7 +34,8 @@ module.exports = {
             patterns: [
                 {
                     from : './shared',
-                    to: ''
+                    to: '',
+                    noErrorOnMissing: true
                 }
             ]
         }),
@@ -45,7 +43,20 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].css',
             chunkFilename: '[id].css'
-        })
+        }),
+
+        new ImageMinimizerPlugin({
+            minimizer: {
+              implementation: ImageMinimizerPlugin.imageminMinify,
+              options: {
+                plugins: [
+                  ["gifsicle", { interlaced: true }],
+                  ["jpegtran", { progressive: true }],
+                  ["optipng", { optimizationLevel: 5 }],
+                ],
+              },
+            },
+          }),
     ],
 
     module: {
@@ -86,7 +97,28 @@ module.exports = {
                         return '[hash].[ext]'
                     }
                 }
-            }
+            },
+
+            {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                use: [
+                    {
+                    loader: ImageMinimizerPlugin.loader,
+                    options: {
+                        severityError: 'warning',
+                        minimizerOptions: {
+                          plugins: [
+                            "imagemin-gifsicle",
+                            "imagemin-mozjpeg",
+                            "imagemin-pngquant",
+                            "imagemin-svgo",
+                                ],
+                            },
+                        },
+                    },
+                
+                ],
+            },
         ]
     }
 }

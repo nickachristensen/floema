@@ -4,7 +4,7 @@ module.exports = {
     globals: {
         'IS_DEVELOPMENT': 'readonly'
     },
-    parsetOptions: {
-        ecnas
+    parserOptions: {
+        ecnasVersion: 2020
     }
 }

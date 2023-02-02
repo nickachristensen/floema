@@ -13,7 +13,7 @@ const dirStyles = path.join(__dirname, 'styles')
 const dirNode = 'node_modules'
 
 module.exports = {
-    entry : [
+    entry: [
         path.join(dirApp, 'index.js'),
         path.join(dirStyles, 'index.scss')
     ],
@@ -33,7 +33,7 @@ module.exports = {
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from : './shared',
+                    from: './shared',
                     to: '',
                     noErrorOnMissing: true
                 }
@@ -47,16 +47,16 @@ module.exports = {
 
         new ImageMinimizerPlugin({
             minimizer: {
-              implementation: ImageMinimizerPlugin.imageminMinify,
-              options: {
-                plugins: [
-                  ["gifsicle", { interlaced: true }],
-                  ["jpegtran", { progressive: true }],
-                  ["optipng", { optimizationLevel: 5 }],
-                ],
-              },
+                implementation: ImageMinimizerPlugin.imageminMinify,
+                options: {
+                    plugins: [
+                        ["gifsicle", { interlaced: true }],
+                        ["jpegtran", { progressive: true }],
+                        ["optipng", { optimizationLevel: 5 }],
+                    ],
+                },
             },
-          }),
+        }),
     ],
 
     module: {
@@ -93,7 +93,7 @@ module.exports = {
                 test: /\.(jpe?g|png|gif|svg|wof2?|fnt|webp)$/,
                 loader: 'file-loader',
                 options: {
-                    name (file) {
+                    name(file) {
                         return '[hash].[ext]'
                     }
                 }
@@ -103,7 +103,7 @@ module.exports = {
                 test: /\.(jpe?g|png|gif|svg)$/i,
                 use: [
                     {
-                    loader: ImageMinimizerPlugin.loader,
+                        loader: ImageMinimizerPlugin.loader,
                     },
                 ],
             },

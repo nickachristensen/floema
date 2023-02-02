@@ -9,7 +9,7 @@ module.exports = merge(config, {
     devServer: {
         devMiddleware: {
             writeToDisk: true
-        }     
+        }
     },
     output: {
         path: path.resolve(__dirname, 'public')

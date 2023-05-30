@@ -5,6 +5,9 @@ const app = express()
 const path = require('path')
 const port = 3000
 
+const Prismic = require('@prismicio/client')
+const PrismicDOM = require('prismic-dom')
+
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 

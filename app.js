@@ -50,16 +50,15 @@ app.get('/', (req, res) => {
 app.get('/about', (req, res) => {
   initApi(req).then((api) => {
     api
-      .query(Prismic.Predicates.at('document.type', 'meta'),
-        Prismic.Predicates.at('document.type', 'about'))
-      .then(response => {
-        const { results } = response
-        const [neta, about] = results
+      .query(
+        Prismic.Predicates.any('document.type', ['meta', 'about'])).then(response => {
+          const { results } = response
+          const [meta, about] = results
 
-        res.render('pages/about', {
-          about
+          res.render('pages/about', {
+            about
+          })
         })
-      })
   })
 })
 

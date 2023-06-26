@@ -61,22 +61,27 @@ app.get('/about', async (req, res) => {
   const api = await initApi(req)
   const meta = await api.getSingle('meta')
   const about = await api.getSingle('about')
+  const preloader = await api.getSingle('preloader')
 
   res.render('pages/about', {
     about,
-    meta
+    meta,
+    preloader
   })
 })
 
 app.get('/detail/:uid', async (req, res) => {
   const api = await initApi(req)
   const meta = await api.getSingle('meta')
+  const preloader = await api.getSingle('preloader')
+
   const product = await api.getByUID('product', req.params.uid, {
     fetchLinks: 'collection.title'
   })
 
   res.render('pages/detail', {
     meta,
+    preloader,
     product
   })
 })
@@ -85,6 +90,8 @@ app.get('/collections', async (req, res) => {
   const api = await initApi(req)
   const meta = await api.getSingle('meta')
   const home = await api.getSingle('home')
+  const preloader = await api.getSingle('preloader')
+
   const { results: collections } = await api.query(Prismic.Predicates.at('document.type', 'collection'), {
     fetchLinks: 'product.image'
   })
@@ -94,7 +101,8 @@ app.get('/collections', async (req, res) => {
   res.render('pages/collections', {
     collections,
     home,
-    meta
+    meta,
+    preloader
   })
 })
 

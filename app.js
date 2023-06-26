@@ -49,8 +49,8 @@ app.get('/', (req, res) => {
 
 app.get('/about', async (req, res) => {
   const api = await initApi(req)
-  const about = await api.getSingle('about')
   const meta = await api.getSingle('meta')
+  const about = await api.getSingle('about')
 
   res.render('pages/about', {
     about,
@@ -58,13 +58,14 @@ app.get('/about', async (req, res) => {
   })
 })
 
-app.get('/detail/:uid', (req, res) => {
-  initApi(req).then(async api => {
-    const meta = await api.getSingle('meta')
+app.get('/detail/:uid', async (req, res) => {
+  const api = await initApi(req)
+  const meta = await api.getSingle('meta')
+  const product = await api.getByUID('product', req.params.uid)
 
-    res.render('pages/detail', {
-      meta
-    })
+  res.render('pages/detail', {
+    meta,
+    product
   })
 })
 

@@ -47,15 +47,14 @@ app.get('/', (req, res) => {
   res.render('pages/home')
 })
 
-app.get('/about', (req, res) => {
-  initApi(req).then(async api => {
-    const about = await api.getSingle('about')
-    const meta = await api.getSingle('meta')
+app.get('/about', async (req, res) => {
+  const api = await initApi(req)
+  const about = await api.getSingle('about')
+  const meta = await api.getSingle('meta')
 
-    res.render('pages/about', {
-      about,
-      meta
-    })
+  res.render('pages/about', {
+    about,
+    meta
   })
 })
 

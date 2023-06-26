@@ -18,25 +18,31 @@ const initApi = req => {
 }
 
 const handleLinkResolver = doc => {
-  // Define the url depending on the document type
+  // // Define the url depending on the document type
 
-  if (doc.type === 'page') {
-    return '/page/' + doc.uid
-  } else if (doc.type === 'blog_post') {
-    return '/blog/' + doc.uid
-  }
+  // if (doc.type === 'page') {
+  //   return '/page/' + doc.uid
+  // } else if (doc.type === 'blog_post') {
+  //   return '/blog/' + doc.uid
+  // }
 
-  // Default to homepage
+  // // Default to homepage
 
-  return '/'
+  // return '/'
 }
 
 app.use(errorHandler())
 
 app.use((req, res, next) => {
-  res.locals.ctx = {
-    endpoint: process.env.PRISMIC_ENDPOINT,
-    linkResolver: handleLinkResolver
+  // res.locals.ctx = {
+  //   endpoint: process.env.PRISMIC_ENDPOINT,
+  //   linkResolver: handleLinkResolver
+  // }
+
+  res.locals.Links = handleLinkResolver
+
+  res.locals.Numbers = index => {
+    return index === 0 ? 'One' : index === 1 ? 'Two' : index === 2 ? 'Three' : index === 3 ? 'Four' : ''
   }
 
   res.locals.PrismicDOM = PrismicDOM
@@ -78,6 +84,7 @@ app.get('/detail/:uid', async (req, res) => {
 app.get('/collections', async (req, res) => {
   const api = await initApi(req)
   const meta = await api.getSingle('meta')
+  const home = await api.getSingle('home')
   const { results: collections } = await api.query(Prismic.Predicates.at('document.type', 'collection'), {
     fetchLinks: 'product.image'
   })
@@ -85,8 +92,9 @@ app.get('/collections', async (req, res) => {
   console.log(collections)
 
   res.render('pages/collections', {
-    meta,
-    collections
+    collections,
+    home,
+    meta
   })
 })
 

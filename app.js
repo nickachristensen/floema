@@ -61,8 +61,22 @@ app.use((req, res, next) => {
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
-app.get('/', (req, res) => {
-  res.render('pages/home')
+app.get('/', async (req, res) => {
+  const api = await initApi(req)
+  const meta = await api.getSingle('meta')
+  const home = await api.getSingle('home')
+  const preloader = await api.getSingle('preloader')
+
+  const { results: collections } = await api.query(Prismic.Predicates.at('document.type', 'collection'), {
+    fetchLinks: 'product.image'
+  })
+
+  res.render('pages/home', {
+    collections,
+    home,
+    meta,
+    preloader
+  })
 })
 
 app.get('/about', async (req, res) => {

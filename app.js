@@ -1,10 +1,20 @@
 require('dotenv').config()
 
+const logger = require('morgan')
 const express = require('express')
 const errorHandler = require('errorhandler')
+const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
+
 const app = express()
 const path = require('path')
 const port = 3000
+
+app.use(logger('dev'))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(methodOverride())
+app.use(errorHandler())
 
 const Prismic = require('prismic-javascript')
 const PrismicDOM = require('prismic-dom')
@@ -30,8 +40,6 @@ const handleLinkResolver = doc => {
 
   // return '/'
 }
-
-app.use(errorHandler())
 
 app.use((req, res, next) => {
   // res.locals.ctx = {

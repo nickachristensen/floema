@@ -1,12 +1,14 @@
 require('dotenv').config()
 
 const express = require('express')
+const errorHandler = require('errorhandler')
 const app = express()
 const path = require('path')
 const port = 3000
 
 const Prismic = require('prismic-javascript')
 const PrismicDOM = require('prismic-dom')
+const { errorMonitor } = require('events')
 
 const initApi = req => {
   return Prismic.getApi(process.env.PRISMIC_ENDPOINT, {
@@ -28,6 +30,8 @@ const handleLinkResolver = doc => {
 
   return '/'
 }
+
+app.use(errorHandler())
 
 app.use((req, res, next) => {
   res.locals.ctx = {
@@ -62,6 +66,8 @@ app.get('/detail/:uid', async (req, res) => {
   const api = await initApi(req)
   const meta = await api.getSingle('meta')
   const product = await api.getByUID('product', req.params.uid)
+
+  console.log(product)
 
   res.render('pages/detail', {
     meta,

@@ -51,12 +51,19 @@ app.get('/about', (req, res) => {
   initApi(req).then((api) => {
     api
       .query(
-        Prismic.Predicates.any('document.type', ['meta', 'about'])).then(response => {
+        Prismic.Predicates.any('document.type', ['about', 'meta'])).then(response => {
           const { results } = response
-          const [meta, about] = results
+          const [about, meta] = results
+
+          console.log(about.data.body)
+
+          about.data.gallery.forEach(media => {
+            console.log(media)
+          })
 
           res.render('pages/about', {
-            about
+            about,
+            meta
           })
         })
   })

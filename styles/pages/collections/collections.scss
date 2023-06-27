@@ -72,7 +72,12 @@
 .collections__article {
   bottom: 8rem;
   left: 8rem;
+  opacity: 0;
   position: absolute;
+
+  &--active {
+    opacity: 1;
+  }
 }
 
 .collections__article__title {

@@ -3,7 +3,7 @@
   justify-content: center;
   margin: 20rem auto;
   position: relative;
-  width: 125.8rem;
+  width: 100%;
 
   &:first-child {
     margin-top: 0;
@@ -78,4 +78,7 @@
 }
 
 .about__content__media__image {
+  @extend %cover;
+
+  object-fit: cover;
 }

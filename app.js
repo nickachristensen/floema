@@ -15,6 +15,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(methodOverride())
 app.use(errorHandler())
+app.use(express.static(path.join(__dirname, 'public')))
 
 const Prismic = require('prismic-javascript')
 const PrismicDOM = require('prismic-dom')
@@ -39,6 +40,8 @@ const handleLinkResolver = doc => {
   if (doc.type === 'collections') {
     return '/collections'
   }
+
+  return '/'
 }
 
 app.use((req, res, next) => {
@@ -72,6 +75,8 @@ app.get('/', async (req, res) => {
   const api = await initApi(req)
   const home = await api.getSingle('home')
   const defaults = await handleRequest(api)
+
+  console.log(defaults)
 
   const { results: collections } = await api.query(Prismic.Predicates.at('document.type', 'collection'), {
     fetchLinks: 'product.image'

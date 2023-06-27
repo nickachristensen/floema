@@ -25,8 +25,11 @@
 }
 
 .about__content__media {
-  position: absolute;
+  position: relative;
 }
 
 .about__content__media__image {
+  @extend %cover;
+
+  object-fit: cover;
 }

@@ -14,7 +14,7 @@ block content
 
       each section in about.data.body
         if section.slice_type == 'title1'
-          h2.about__title=section.primary.text
+          h2.about__title!=section.primary.text.replace(/\n/g, '<br>')
 
         if section.slice_type == 'title'
           section.about__content

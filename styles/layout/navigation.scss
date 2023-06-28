@@ -1,10 +1,12 @@
 .navigation {
   @extend %cover;
 
+  color: $color-white;
   z-index: z("navigation");
 }
 
 .navigation__link {
+  font-size: 0;
   height: 2rem;
   left: 4rem;
   position: absolute;

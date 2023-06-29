@@ -102,3 +102,21 @@
   display: inline-block;
   margin-top: 3rem;
 }
+
+.detail__button {
+  align-items: center;
+  bottom: 5rem;
+  color: $color-white;
+  display: flex;
+  height: 6rem;
+  justify-content: center;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  width: 12.4rem;
+  z-index: 3;
+}
+
+.detail__button__icon {
+  @extend %cover;
+}

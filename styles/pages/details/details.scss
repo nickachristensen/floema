@@ -138,6 +138,8 @@
 }
 
 .detail__button {
+  @extend %description-14;
+
   align-items: center;
   bottom: 5rem;
   color: $color-white;
@@ -153,7 +155,6 @@
   @include media("<phone") {
     bottom: 12rem;
     height: 13rem;
-    font-size: 3rem;
     width: 26.8rem;
   }
 }

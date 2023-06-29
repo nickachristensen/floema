@@ -4,17 +4,34 @@
 
   background: $color-quicksand;
   color: $color-white;
+
+  @include media("<phone") {
+    height: auto;
+  }
 }
 
 .detail__wrapper {
   align-items: center;
   display: flex;
+
+  @include media("<phone") {
+    display: block;
+    margin: auto;
+    padding: 31.5rem 0;
+    width: 66.1rem;
+  }
 }
 
 .detail__media {
   height: 78.2rem;
-  width: 55.4rem;
   position: relative;
+  width: 55.4rem;
+
+  @include media("<phone") {
+    height: 93.4rem;
+    margin: 0 auto 7.8rem;
+    width: 100%;
+  }
 }
 
 .detail__media__image {
@@ -25,6 +42,10 @@
 
 .detail__information {
   padding-left: 8.2rem;
+
+  @include media("<phone") {
+    padding-left: 0;
+  }
 }
 
 .detail__information__collection {
@@ -42,6 +63,10 @@
 
 .detail__information__content {
   padding-left: 18rem;
+
+  @include media("<phone") {
+    padding-left: 0;
+  }
 }
 
 .detail__information__highlights {
@@ -58,11 +83,15 @@
 }
 
 .detail__information__highlight__icon {
-  border: 1px solid currentColor;
-  border-radius: 50%;
   height: 4rem;
   width: 4rem;
   margin-right: 3.75rem;
+
+  @include media("<phone") {
+    height: 9.2rem;
+    margin-right: 5.8rem;
+    width: 9.2rem;
+  }
 }
 
 .detail__information__highlight__text {
@@ -86,6 +115,11 @@
 
   padding-right: 2.5rem;
   width: 10rem;
+
+  @include media("<phone") {
+    padding-right: 5rem;
+    width: 15rem;
+  }
 }
 
 //may need to change this class name to .detail__information__item__description  also in detail.pug
@@ -115,6 +149,11 @@
   transform: translateX(-50%);
   width: 12.4rem;
   z-index: 3;
+
+  @include media("<phone") {
+    height: 13rem;
+    width: 26.8rem;
+  }
 }
 
 .detail__button__icon {

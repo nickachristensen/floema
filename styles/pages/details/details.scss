@@ -17,7 +17,7 @@
   @include media("<phone") {
     display: block;
     margin: auto;
-    padding: 31.5rem 0;
+    padding: 15rem 0 31.5rem;
     width: 66.1rem;
   }
 }
@@ -151,7 +151,9 @@
   z-index: 3;
 
   @include media("<phone") {
+    bottom: 12rem;
     height: 13rem;
+    font-size: 3rem;
     width: 26.8rem;
   }
 }

@@ -20,6 +20,15 @@
   .about__highlight:nth-child(4) & {
     width: 100%;
   }
+
+  @include media("<phone") {
+    width: 100%;
+
+    .about__highlight:nth-child(4) & {
+      height: 119.3rem;
+      width: 100%;
+    }
+  }
 }
 
 .about__highlight__label {

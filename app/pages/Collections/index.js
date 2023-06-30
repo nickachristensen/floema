@@ -5,7 +5,5 @@ export default class Collections extends Page {
     super({
       id: 'collections'
     })
-
-    console.log('Collections')
   }
 }

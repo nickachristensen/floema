@@ -6,6 +6,5 @@ export default class Detail extends Page {
       id: 'detail'
     })
 
-    console.log('Detail')
   }
 }

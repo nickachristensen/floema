@@ -6,6 +6,5 @@ export default class Home extends Page {
       id: 'home'
     })
 
-    console.log('Home')
   }
 }

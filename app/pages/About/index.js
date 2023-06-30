@@ -6,6 +6,5 @@ export default class About extends Page {
       id: 'about'
     })
 
-    console.log('About')
   }
 }

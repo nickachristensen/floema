@@ -5,7 +5,10 @@ export default class About extends Page {
     super({
       id: 'about',
 
-      element: '.about'
+      element: '.about',
+      elements: {
+        title: '.about__title'
+      }
     })
   }
 }

@@ -1,5 +1,11 @@
-export default class About {
+import Page from 'classes/Page'
+
+export default class About extends Page {
   constructor() {
+    super({
+      id: 'anout'
+    })
+
     console.log('About')
   }
 }

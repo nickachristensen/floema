@@ -20,14 +20,19 @@ export default class Page {
 
     each(this.selectorChildren, (entry, key) => {
       if (entry instanceof window.HTMLElement || entry instanceof window.NodeList) {
-        this.element[key] = entry
+        this.elements[key] = entry
+      } else {
+        this.elements[key] = document.querySelectorAll(entry)
+
+        if (this.elements[key].length === 0) {
+          this.elements[key] = null
+        } else if (this.elements[key].length === 1) {
+          this.elements[key] = document.querySelector(entry)
+        }
       }
 
+      console.log(this.elements[key])
       console.log(entry)
     })
-
-    console.log(this.element)
-
-    console.log('Create', this.id)
   }
 }

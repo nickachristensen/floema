@@ -5,7 +5,10 @@ export default class Home extends Page {
     super({
       id: 'home',
 
-      element: '.home'
+      element: '.home',
+      elements: {
+        button: 'home__button'
+      }
     })
   }
 }

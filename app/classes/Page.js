@@ -17,7 +17,7 @@ export default class Page {
     this.elements = {}
 
     this.selectorChildren.forEach(entry => {
-
+      console.log(entry)
     })
 
     console.log('Create', this.id)

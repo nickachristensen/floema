@@ -1,3 +1,5 @@
+import each from 'lodash/each'
+
 export default class Page {
   constructor({
     element,
@@ -16,9 +18,15 @@ export default class Page {
     this.element = document.querySelector(this.selector)
     this.elements = {}
 
-    this.selectorChildren.forEach(entry => {
+    each(this.selectorChildren, (entry, key) => {
+      if (entry instanceof window.HTMLElement || entry instanceof window.NodeList) {
+        this.element[key] = entry
+      }
+
       console.log(entry)
     })
+
+    console.log(this.element)
 
     console.log('Create', this.id)
   }

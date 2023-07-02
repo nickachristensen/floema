@@ -12,4 +12,10 @@ export default class Home extends Page {
       }
     })
   }
+
+  create() {
+    super.create()
+
+    this.elements.link.addEventListener('click', _ => console.log('you clicked me'))
+  }
 }

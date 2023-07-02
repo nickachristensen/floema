@@ -34,6 +34,8 @@ class App {
   }
 
   async onChange(url) {
+    await this.page.hide()
+
     const request = await window.fetch(url)
 
     if (request.status === 200) {
@@ -44,11 +46,16 @@ class App {
 
       const divContent = div.querySelector('.content')
 
-      this.content.setAttribute('data-template', divContent.getAttribute('data-template'))
+      this.template = divContent.getAttribute('data-template')
+
+      this.content.setAttribute('data-template', this.template)
       this.content.innerHTML = divContent.innerHTML
-      console.log(html)
+
+      this.page = this.pages[this.template]
+      this.page.create()
+      this.page.show()
     } else {
-      console.log()
+      console.log('Error')
     }
   }
 

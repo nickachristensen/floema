@@ -11,5 +11,9 @@ export default class Preloader extends Component {
     })
 
     console.log(this.element, this.elements)
+
+    setTimeout(_ => {
+      this.emit('completed')
+    }, 1000)
   }
 }

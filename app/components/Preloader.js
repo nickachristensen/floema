@@ -20,6 +20,7 @@ export default class Preloader extends Component {
 
   createLoader () {
     each(this.elements.images, image => {
+      
       console.log(image)
     })
   }

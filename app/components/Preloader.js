@@ -24,11 +24,8 @@ export default class Preloader extends Component {
 
   createLoader () {
     each(this.elements.images, element => {
-      const image = new Image()
-
-      image.onload = () => this.onAssetLoaded(image)
-      image.src = element.getAttribute('data-src')
-
+      element.onload = () => this.onAssetLoaded(element)
+      element.src = element.getAttribute('data-src')
     })
   }
 
@@ -37,7 +34,7 @@ export default class Preloader extends Component {
 
     const percent = this.length / this.elements.images.length
 
-    this.elements.number.innerHTML = `${Math.round(percent * 100)}`
+    this.elements.number.innerHTML = `${Math.round(percent * 100)}%`
 
     if (percent === 1) {
       this.onLoaded()

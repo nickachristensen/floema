@@ -1,5 +1,7 @@
+import GSAP from 'gsap'
+
 import Component from 'classes/Component'
-import { _forEachName } from 'gsap/gsap-core'
+
 import each from 'lodash/each'
 
 export default class Preloader extends Component {
@@ -43,6 +45,22 @@ export default class Preloader extends Component {
   }
 
   onLoaded () {
-    this.emit('completed')
+    return new Promise(resolve => {
+      this.animateOut = GSAP.timeline({
+        delay: 2
+      })
+
+      this.animateOut.to(this.element, {
+        autoAlpha: 0
+      })
+
+      this.animateOut.call(() => {
+        this.emit('completed')
+      })
+    })
+  }
+
+  destroy () {
+    this.element.parentNode.removeChild(this.element)
   }
 }

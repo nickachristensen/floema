@@ -15,6 +15,8 @@ class App {
     this.createPages()
 
     this.addLinkListeners()
+
+    this.update()
   }
 
   createPreloader() {
@@ -73,6 +75,14 @@ class App {
     } else {
       console.log('Error')
     }
+  }
+
+  update () {
+    if (this.page && this.page.update) {
+      this.page.update()
+    }
+
+    this.frame = window.requestAnimationFrame(this.update.bind(this))
   }
 
   addLinkListeners() {

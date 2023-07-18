@@ -67,6 +67,10 @@ export default class Page {
 
   onMouseWheel (event) {
     console.log(event)
+
+    const { deltaY } = event
+
+    console.log(deltaY)
   } 
 
   addEventListeners () {

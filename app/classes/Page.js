@@ -36,8 +36,10 @@ export default class Page {
 
   show() {
     return new Promise(resolve => {
-      GSAP.from(this.element, {
+      GSAP.fromTo(this.element, {
         autoAlpha: 0,
+      },{
+        autoAlpha: 1,
         onComplete: resolve
       })
     })

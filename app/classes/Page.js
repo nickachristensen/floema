@@ -15,9 +15,16 @@ export default class Page {
     this.id = id
   }
 
+
   create() {
     this.element = document.querySelector(this.selector)
     this.elements = {}
+
+    this.scroll = {
+      current: 0,
+      target: 0,
+      last: 0
+    }
 
     each(this.selectorChildren, (entry, key) => {
       if (entry instanceof window.HTMLElement || entry instanceof window.NodeList || Array.isArray(entry)) {
@@ -71,7 +78,14 @@ export default class Page {
     const { deltaY } = event
 
     console.log(deltaY)
+    this.scroll.target += deltaY
   } 
+
+  update () {
+    console.log(this.scroll.target)
+    
+    this.scroll.current = lerp(this.scroll.current, this.scroll.target)
+  }
 
   addEventListeners () {
     window.addEventListener('mousewheel', this.onMouseWheel)

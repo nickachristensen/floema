@@ -86,6 +86,9 @@ export default class Page {
     this.scroll.target += deltaY
   } 
 
+  onResize () {
+    this.scroll.limit = this.elements.wrapper.clientHeight
+  }
 
 
   update () {

@@ -1,4 +1,7 @@
 import GSAP from 'gsap'
+import Prefix from 'prefix'
+
+
 import each from 'lodash/each'
 
 export default class Page {
@@ -13,6 +16,16 @@ export default class Page {
     }
 
     this.id = id
+
+    this.transformPrefix = Prefix('transform')
+
+    this.scroll = {
+      current: 0,
+      target: 0,
+      last: 0
+    }
+
+    this.onMouseWheelEvent = this.onMouseWheel.bind(this)
   }
 
 
@@ -73,25 +86,24 @@ export default class Page {
   }
 
   onMouseWheel (event) {
-    console.log(event)
-
     const { deltaY } = event
 
-    console.log(deltaY)
     this.scroll.target += deltaY
   } 
 
   update () {
-    console.log(this.scroll.target)
+    this.scroll.current = GSAP.utils.interpolate(this.scroll.target, this.scroll.current, 0.1)
 
-    this.scroll.current = GSAP.interpolate(this.scroll.current, this.scroll.target, 0.1)
+    if (this.elements.wrapper) {
+    this.elements.wrapper.style[this.transformPrefix] = `translateY(-${this.scroll.current}px)`
   }
+}
 
   addEventListeners () {
-    window.addEventListener('mousewheel', this.onMouseWheel)
+    window.addEventListener('mousewheel', this.onMouseWheelEvent)
   }
 
   removeEventListeners () {
-    window.removeEventListener('mousewheel', this.onMouseWheel)
+    window.removeEventListener('mousewheel', this.onMouseWheelEvent)
   }
 }

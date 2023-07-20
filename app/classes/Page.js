@@ -83,8 +83,8 @@ export default class Page {
 
   update () {
     console.log(this.scroll.target)
-    
-    this.scroll.current = lerp(this.scroll.current, this.scroll.target)
+
+    this.scroll.current = GSAP.interpolate(this.scroll.current, this.scroll.target, 0.1)
   }
 
   addEventListeners () {

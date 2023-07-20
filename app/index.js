@@ -40,14 +40,14 @@ class App {
 
     this.page = this.pages[this.template]
     this.page.create()
-
-    this.onResize()
   }
 
 
   /*Events*/
   onPreloaded() {
     this.preloader.destroy()
+
+    this.onResize()
 
     this.page.show()
   }

@@ -1,8 +1,11 @@
 import GSAP from 'gsap'
+
 import Animation from 'classes/Animation'
 
 export default class Title extends Animation {
   constructor ({ element, elements }) {
+    console.log(element)
+    
     super({
         element,
         elements

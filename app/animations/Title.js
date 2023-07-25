@@ -3,6 +3,9 @@ import GSAP from 'gsap'
 import Animation from 'classes/Animation'
 
 import { calculate, split } from 'utils/text'
+import { _forEachName } from 'gsap/gsap-core'
+
+import each from 'lodash/each'
 
 export default class Title extends Animation {
   constructor ({ element, elements }) {
@@ -20,20 +23,23 @@ export default class Title extends Animation {
   }
 
   animateIn () {
+    this.timelineIn = GSAP.timeline({
+        delay: 0.5
+    })
+
     GSAP.set(this.element, {
         autoAlpha: 1
     })
 
-    GSAP.fromTo(this.elementsLines, {
-        y: '100%'
-    }, {
-        delay: 0.5,
-        duration: 1.5,
-        stagger: {
-            amount: 1,
-            axis: 'x'
-        },
-        y: '0%'
+    each(this.elementsLines, (line, index) => {
+        this.timelineIn.fromTo(line, {
+            y: '100%'
+        }, {
+            delay: index * 0.2,
+            duration: 1.5,
+            ease: 'expo.out',
+            y: '0%'
+        }, 0)
     })
   }
 

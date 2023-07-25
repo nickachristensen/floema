@@ -6,9 +6,9 @@ import Prefix from 'prefix'
 import each from 'lodash/each'
 import map from 'lodash/map'
 
-import Label from '../animations/Label.js'
-import Paragraph from '../animations/Paragraph.js'
-import Title from '../animations/Title.js'
+import Label from '../animations/Label'
+import Paragraph from '../animations/Paragraph'
+import Title from '../animations/Title'
 
 export default class Page {
   constructor({
@@ -20,7 +20,7 @@ export default class Page {
     this.selectorChildren = {
       ...elements,
 
-      animationsLable: '[data-animation="lable"]',
+      animationsLabels: '[data-animation="label"]',
       animationsParagraphs: '[data-animation="paragraph"]',
       animationsTitles: '[data-animation="title"]'
     }

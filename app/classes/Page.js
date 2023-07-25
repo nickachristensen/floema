@@ -6,6 +6,7 @@ import Prefix from 'prefix'
 import each from 'lodash/each'
 import map from 'lodash/map'
 
+import Highlight from '../animations/Highlight'
 import Label from '../animations/Label'
 import Paragraph from '../animations/Paragraph'
 import Title from '../animations/Title'
@@ -20,6 +21,7 @@ export default class Page {
     this.selectorChildren = {
       ...elements,
 
+      animationsHighlights: '[data-animation="highlight"]',
       animationsLabels: '[data-animation="label"]',
       animationsParagraphs: '[data-animation="paragraph"]',
       animationsTitles: '[data-animation="title"]'
@@ -64,7 +66,16 @@ export default class Page {
   
   createAnimations () {
     this.animations = []
+    
+    //Highlights
+    this.animationsHighlights = map(this.elements.animationsHighlights, element => {
+      return new Highlight({
+        element
+      })
+    })
 
+    this.animations.push(...this.animationsHighlights)
+    
     //Titles
     this.animationsTitles = map(this.elements.animationsTitles, element => {
       return new Title({
@@ -83,7 +94,7 @@ export default class Page {
     
     this.animations.push(...this.animationsParagraphs)
 
-    //Label
+    //Labels
     this.animationsLabels = map(this.elements.animationsLabels, element => {
       return new Label({
         element
@@ -91,6 +102,7 @@ export default class Page {
     })
 
     this.animations.push(...this.animationsLabels)
+
   }
 
   show() {

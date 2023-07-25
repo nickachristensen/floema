@@ -13,7 +13,7 @@ import Home from 'pages/Home'
 class App {
   constructor() {
     this.createContent()
-    
+
     this.createPreloader()
     this.createNavigation()
     this.createPages()

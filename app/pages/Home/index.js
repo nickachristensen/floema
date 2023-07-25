@@ -18,4 +18,10 @@ export default class Home extends Page {
 
     this.elements.link.addEventListener('click', _ => console.log('you clicked me'))
   }
+
+  destroy() {
+    super.destroy()
+
+    this.link.removeEventListeners()
+  }
 }

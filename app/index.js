@@ -1,5 +1,6 @@
 import each from 'lodash/each'
 
+import Navigation from 'components/Navigation'
 import Preloader from 'components/Preloader'
 
 import About from 'pages/About'
@@ -8,16 +9,25 @@ import Detail from 'pages/Detail'
 import Home from 'pages/Home'
 
 
+
 class App {
   constructor() {
-    this.createPreloader()
     this.createContent()
+    
+    this.createPreloader()
+    this.createNavigation()
     this.createPages()
 
     this.addEventListeners()
     this.addLinkListeners()
 
     this.update()
+  }
+
+  createNavigation () {
+    this.navigation = new Navigation({
+      template: this.template
+    })
   }
 
   createPreloader() {
@@ -67,6 +77,8 @@ class App {
 
       this.template = divContent.getAttribute('data-template')
 
+      this.navigation.onChange(this.template)
+
       this.content.setAttribute('data-template', this.template)
       this.content.innerHTML = divContent.innerHTML
 
@@ -74,7 +86,6 @@ class App {
 
       this.onResize()
 
-      this.page.create()
       this.page.show()
 
       this.addLinkListeners()

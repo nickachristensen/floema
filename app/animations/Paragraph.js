@@ -9,8 +9,7 @@ import each from 'lodash/each'
 
 export default class Paragraph extends Animation {
   constructor ({ element, elements }) {
-    console.log(element)
-
+    
     super({
         element,
         elements

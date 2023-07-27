@@ -6,10 +6,12 @@ export default class Button extends Component {
     }
 
     addEventListeners () {
-
+        this.element.addEventListener('mouseenter', this.onMouseEnter)
+        this.element.addEventListener('mouseleave', this.onMouseLeave)
     }
 
     removeEventListeners () {
-        
+        this.element.removeEventListener('mouseenter', this.onMouseEnter)
+        this.element.removeEventListener('mouseleave', this.onMouseLeave)
     }
 }

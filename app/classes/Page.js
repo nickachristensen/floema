@@ -157,6 +157,8 @@ export default class Page {
 
     each(this.animations, animation => animation.onResize())
   }
+  
+  
 
 
   update () {

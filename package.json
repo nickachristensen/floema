@@ -57,6 +57,7 @@
     "nodemon": "^2.0.20",
     "prismic-dom": "^2.2.7",
     "prismic-javascript": "^3.0.2",
-    "pug": "^3.0.2"
+    "pug": "^3.0.2",
+    "ua-parser-js": "^1.0.35"
   }
 }

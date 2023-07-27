@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 const Prismic = require('prismic-javascript')
 const PrismicDOM = require('prismic-dom')
-const { errorMonitor } = require('events')
+const UAParser = require('ua-parser-js')
 
 const initApi = req => {
   return Prismic.getApi(process.env.PRISMIC_ENDPOINT, {
@@ -45,6 +45,12 @@ const handleLinkResolver = doc => {
 }
 
 app.use((req, res, next) => {
+  const ua = UAParser(req.headers['user-agent'])
+
+  res.locals.isDesktop = ua.device.type === undefined
+  res.locals.isPhone = ua.device.type === 'mobile'
+  res.locals.isTablet = ua.device.type === 'tablet'
+
   res.locals.Link = handleLinkResolver
 
   res.locals.Numbers = index => {

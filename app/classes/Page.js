@@ -11,6 +11,7 @@ import Label from '../animations/Label'
 import Paragraph from '../animations/Paragraph'
 import Title from '../animations/Title'
 
+import AsyncLoad from './AsyncLoad'
 import { ColorsManager } from './Colors'
 
 export default class Page {
@@ -26,7 +27,9 @@ export default class Page {
       animationsHighlights: '[data-animation="highlight"]',
       animationsLabels: '[data-animation="label"]',
       animationsParagraphs: '[data-animation="paragraph"]',
-      animationsTitles: '[data-animation="title"]'
+      animationsTitles: '[data-animation="title"]',
+
+      preloaders: '[data-src]'
     }
 
     this.id = id
@@ -63,7 +66,7 @@ export default class Page {
     })
 
     this.createAnimations()
-
+    this.createPreloader()
   }
   
   createAnimations () {
@@ -105,6 +108,12 @@ export default class Page {
 
     this.animations.push(...this.animationsLabels)
 
+  }
+
+  createPreloader () {
+    this.preloaders = map(this.elements.preloaders, element => {
+      return new AsyncLoad({ element })
+    })
   }
 
   show() {

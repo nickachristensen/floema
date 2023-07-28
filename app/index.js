@@ -1,5 +1,7 @@
 import each from 'lodash/each'
 
+import Canvas from 'components/Canvas'
+
 import Navigation from 'components/Navigation'
 import Preloader from 'components/Preloader'
 
@@ -16,6 +18,7 @@ class App {
 
     this.createPreloader()
     this.createNavigation()
+    this.createCanvas()
     this.createPages()
 
     this.addEventListeners()
@@ -35,6 +38,10 @@ class App {
   createPreloader() {
     this.preloader = new Preloader()
     this.preloader.once('completed', this.onPreloaded.bind(this))
+  }
+
+  createCanvas () {
+    this.canvas = new Canvas()
   }
 
   createContent() {

@@ -30,7 +30,7 @@ const initApi = req => {
 
 const handleLinkResolver = doc => {
   if (doc.type === 'product') {
-    return `detail/${doc.slug}`
+    return `detail/${doc.uid}`
   }
 
   if (doc.type === 'about') {

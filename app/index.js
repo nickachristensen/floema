@@ -103,6 +103,7 @@ class App {
       this.content.innerHTML = divContent.innerHTML
 
       this.page = this.pages[this.template]
+      this.page.create()
 
       this.onResize()
 

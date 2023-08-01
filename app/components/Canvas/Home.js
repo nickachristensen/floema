@@ -5,14 +5,16 @@ import map from 'lodash/map'
 import Media from './Media'
 
 export default class {
-    constructor ({ gl }) {
+    constructor ({ gl, scene }) {
         this.gl = gl
-        this.scene = new Transform()
+        this.group = new Transform()
 
         this.medias = document.querySelectorAll('.home__gallery__media__image')
 
         this.createGeometry()
         this.createGallery()
+
+        this.group.setParent(scene)
     }
 
     createGeometry() {
@@ -25,7 +27,8 @@ export default class {
                 element,
                 geometry: this.geometry,
                 index,
-                scene: this.scene
+                gl: this.gl,
+                scene: this.group
             })
         })
     }

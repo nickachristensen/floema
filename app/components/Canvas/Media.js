@@ -9,18 +9,28 @@ export default class {
         this.geometry = geometry
         this.gl = gl
         this.scene = scene
+
+        this.createTexture()
+        this.createProgram()
+        this.createMesh()
     }
 
     createTexture () {
         this.texture = new Texture(this.gl)
+
+        console.log(this.element)
+
+        this.image = new window.Image()
+        this.image.src = this.element.getAttribute('data-src')
+        this.image.onload = () => (this.texture.image = this.image)
     }
 
     createProgram () {
-        this.program = new Program({
+        this.program = new Program(this.gl, {
             fragment,
             vertex,
             uniforms: {
-
+                tMap: { value: this.texture }
             }
         })
     }

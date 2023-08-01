@@ -1,7 +1,6 @@
-import { Box, Camera, Mesh, Program, Renderer, Transform } from 'ogl'
+import { Camera, Renderer, Transform } from 'ogl'
 
-import fragment from 'shaders/plane-fragment.glsl'
-import vertex from 'shaders/plane-vertex.glsl'
+import Home from './Home'
 
 export default class Canvas {
     constructor () {
@@ -28,19 +27,8 @@ export default class Canvas {
         this.scene = new Transform()
     }
 
-    createCube () {
-        this.geometry = new Box(this.gl)
-
-        this.program = new Program(this.gl, {
-            vertex,
-            fragment
-        })
-
-        this.mesh = new Mesh(this.gl, {
-            geometry: this.geometry, 
-            program: this.program
-        })
-        this.mesh.setParent(this.scene)
+    createHome () {
+        this.scene = new Home()
     }
 
     onResize () {

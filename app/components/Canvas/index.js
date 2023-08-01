@@ -7,7 +7,7 @@ export default class Canvas {
         this.createRenderer()
         this.createCamera()
         this.createScene()
-        this.createCube()
+        this.createHome()
     }
 
     createRenderer () {
@@ -28,7 +28,9 @@ export default class Canvas {
     }
 
     createHome () {
-        this.scene = new Home()
+        this.scene = new Home({
+            gl: this.gl
+        })
     }
 
     onResize () {

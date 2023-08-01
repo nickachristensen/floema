@@ -28,7 +28,7 @@ export default class Canvas {
     }
 
     createHome () {
-        this.scene = new Home({
+        this.home = new Home({
             gl: this.gl,
             scene: this.scene
         })

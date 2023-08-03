@@ -62,10 +62,8 @@ export default class {
         this.mesh.scale.x = width * this.width
         this.mesh.scale.y = height * this.height
 
-        this.mesh.position.x = -width / 2 + this.width / 2
-        this.mesh.position.y = height / 2 + this.height / 2
-
-        console.log(this.height, this.width)
+        this.mesh.position.x = (-width / 2) + (this.mesh.scale.x / 2)
+        this.mesh.position.y = (height / 2) - (this.mesh.scale.y / 2)
     }
 
     updateX () {

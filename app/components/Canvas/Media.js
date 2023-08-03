@@ -45,11 +45,38 @@ export default class {
         this.mesh.setParent(this.scene)
 
         this.mesh.scale.x = 2
-
-        this.mesh.position.x += this.index * this.mesh.scale.x
     }
 
-    onResize () {
+    createBounds ({ sizes }) {
+        this.bounds = this.element.getBoundingClientRect()
 
+        this.updateScale(sizes)
+        this.updateX()
+        this.updateY()
+    }
+
+    updateScale ({ height, width }) {
+        this.height = this.bounds.height / window.innerHeight
+        this.width = this.bounds.width / window.innerWidth
+
+        this.mesh.scale.x = width * this.width
+        this.mesh.scale.y = height * this.height
+
+        this.mesh.position.x = -width / 2 + this.width / 2
+        this.mesh.position.y = height / 2 + this.height / 2
+
+        console.log(this.height, this.width)
+    }
+
+    updateX () {
+
+    }
+
+    updateY () {
+
+    }
+
+    onResize (sizes) {
+        this.createBounds(sizes)
     }
 }

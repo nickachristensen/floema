@@ -64,17 +64,14 @@ export default class {
 
         this.x = this.bounds.left / window.innerWidth
         this.y = this.bounds.top / window.innerHeight
+    }
 
+    updateX (x = 0) {
         this.mesh.position.x = (-width / 2) + (this.mesh.scale.x / 2) + (this.x * width)
+    }
+
+    updateY (y = 0) {
         this.mesh.position.y = (height / 2) - (this.mesh.scale.y / 2) - (this.y * height)
-    }
-
-    updateX () {
-
-    }
-
-    updateY () {
-
     }
 
     onResize (sizes) {

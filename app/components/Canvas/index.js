@@ -97,9 +97,6 @@ export default class Canvas {
         this.x.end = x
         this.y.end = y
 
-        this.x.distance = this.x.start - this.x.end
-        this.y.distance = this.y.start - this.y.end
-
         if (this.home) {
             this.home.onTouchDown({ 
                 x: this.x, 
@@ -114,6 +111,9 @@ export default class Canvas {
         const x = event.changedTouches ? event.changedTouches[0].clientX : event.clientX
         const y = event.changedTouches ? event.changedTouches[0].clientY : event.clientY
 
+        this.x.end = x
+        this.y.end = y
+
         if (this.home) {
             this.home.onTouchDown({ 
                 x: this.x, 
@@ -124,6 +124,10 @@ export default class Canvas {
 
     /*Loop*/
     update () {
+        if (this.home) {
+            this.home.update()
+        }
+
         this.renderer.render({
             camera: this.camera,
             scene: this.scene

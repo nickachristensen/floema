@@ -36,7 +36,27 @@ export default class {
         })
     }
 
+    /* Events */
     onResize (event) {
         map(this.medias, media => media.onResize(event))
+    }
+
+    onTouchDown ({ x, y }) {
+
+    }
+
+    onTouchMove ({ x, y }) {
+        
+    }
+
+    onTouchUp ({ x, y }) {
+        
+    }
+
+    /* Update */
+    update () {
+        map(this.medias, media => {
+            media.update()
+        })
     }
 }

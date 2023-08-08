@@ -38,6 +38,7 @@ export default class Canvas {
         })
     }
 
+    /*Events*/
     onResize () {
         this.renderer.setSize(window.innerWidth, window.innerHeight)
 
@@ -61,6 +62,22 @@ export default class Canvas {
         }
     }
 
+    onTouchDown (event) {
+        const x = event.touches ? event.touches[0].clientX : event.clientX
+        const y = event.touches ? event.touches[0].clientY : event.clientY
+    }
+
+    onTouchMove (event) {
+        const x = event.touches ? event.touches[0].clientX : event.clientX
+        const y = event.touches ? event.touches[0].clientY : event.clientY
+    }
+
+    onTouchUp (event) {
+        const x = event.touches ? event.touches[0].clientX : event.clientX
+        const y = event.touches ? event.touches[0].clientY : event.clientY
+    }
+
+    /*Loop*/
     update () {
         this.renderer.render({
             camera: this.camera,

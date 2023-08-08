@@ -74,8 +74,8 @@ export default class {
         const xDistance = x.start - x.end
         const yDistance = y.start - y.end
 
-        this.x.target = this.scrollCurrent.x + xDistance
-        this.y.target = this.scrollCurrent.y + yDistance
+        this.x.target = this.scrollCurrent.x - xDistance
+        this.y.target = this.scrollCurrent.y - yDistance
     }
 
     onTouchUp ({ x, y }) {

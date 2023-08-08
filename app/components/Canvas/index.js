@@ -4,6 +4,18 @@ import Home from './Home'
 
 export default class Canvas {
     constructor () {
+        this.x = {
+            start: 0,
+            distance: 0,
+            end: 0
+        }
+
+        this.y = {
+            start: 0,
+            distance: 0,
+            end: 0
+        }
+
         this.createRenderer()
         this.createCamera()
         this.createScene()
@@ -63,18 +75,51 @@ export default class Canvas {
     }
 
     onTouchDown (event) {
-        const x = event.touches ? event.touches[0].clientX : event.clientX
-        const y = event.touches ? event.touches[0].clientY : event.clientY
+        this.isDown = true
+
+        this.x.start = event.touches ? event.touches[0].clientX : event.clientX
+        this.y.start = event.touches ? event.touches[0].clientY : event.clientY
+
+        if (this.home) {
+            this.home.onTouchDown({ 
+                x: this.x.start, 
+                y: this.y.start 
+            })
+        }
     }
 
     onTouchMove (event) {
+        if (!this.isDown) return
+
         const x = event.touches ? event.touches[0].clientX : event.clientX
         const y = event.touches ? event.touches[0].clientY : event.clientY
+
+        this.x.end = x
+        this.y.end = y
+
+        this.x.distance = this.x.start - this.x.end
+        this.y.distance = this.y.start - this.y.end
+
+        if (this.home) {
+            this.home.onTouchDown({ 
+                x: this.x, 
+                y: this.y 
+            })
+        }
     }
 
     onTouchUp (event) {
-        const x = event.touches ? event.touches[0].clientX : event.clientX
-        const y = event.touches ? event.touches[0].clientY : event.clientY
+        this.isDown = false
+
+        const x = event.changedTouches ? event.changedTouches[0].clientX : event.clientX
+        const y = event.changedTouches ? event.changedTouches[0].clientY : event.clientY
+
+        if (this.home) {
+            this.home.onTouchDown({ 
+                x: this.x, 
+                y: this.y 
+            })
+        }
     }
 
     /*Loop*/

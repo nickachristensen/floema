@@ -92,6 +92,11 @@ export default class {
         
     }
 
+    onWheel ({ pixelX, pixelY }) {
+        this.x.target += pixelX
+        this.y.target += pixelY
+    }
+
     /* Update */
     update () {
         this.x.current = GSAP.utils.interpolate(this.x.current, this.x.target, this.x.lerp)

@@ -154,12 +154,6 @@ export default class Page {
   }
 
 /*Events*/
-  onMouseWheel (event) {
-    const { pixelY } = NormalizeWheel(event)
-
-    this.scroll.target += pixelY
-  } 
-
   onResize () {
     console.log(this)
     if (this.elements.wrapper) {
@@ -169,6 +163,9 @@ export default class Page {
     each(this.animations, animation => animation.onResize())
   }
   
+  onWheel ({ pixelY }) {
+    this.scroll.target += pixelY
+  }
   
 
 /*Loop*/
@@ -188,11 +185,11 @@ export default class Page {
 
 /*Listeners*/
   addEventListeners () {
-    window.addEventListener('mousewheel', this.onMouseWheelEvent)
+
   }
 
   removeEventListeners () {
-    window.removeEventListener('mousewheel', this.onMouseWheelEvent)
+
   }
 
   /*Destroy*/

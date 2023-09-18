@@ -67,7 +67,12 @@ export default class {
         map(this.medias, media => media.onResize(event))
 
         this.sizes = event.sizes
+
+        this.gallerySizes = {
+           height: this.galleryBounds.height / window.innerHeight * this.sizes.height,
+           width: this.galleryBounds.width / window.innerWidth * this.sizes.width
     }
+} 
 
     onTouchDown ({ x, y }) {
         this.scrollCurrent.x = this.scroll.x
@@ -98,23 +103,46 @@ export default class {
             this.x.direction = 'left'
         }
 
-        this.galleryWidth = this.galleryBounds.width / window.innerWidth * this.sizes.width
+        if (this.scroll.y < this.y.current) {
+            this.y.direction = 'top'
+        } else if (this.scroll.y > this.y.current) {
+            this.y.direction = 'bottom'
+        }
+
 
         this.scroll.x = this.x.current
         this.scroll.y = this.y.current
 
         map(this.medias, (media, index) => {
+            const scaleX = media.mesh.position.x / 2
+
             if (this.x.direction === 'left') {
-                const x = media.mesh.position.x + media.mesh.scale.x / 2
+                const x = media.mesh.position.x + scaleX
                 
                 if (x < -this.sizes.width / 2) {
-                    media.extra.x += this.galleryWidth
+                    media.extra.x += this.gallerySizes.width
                 }
             } else if (this.x.direction ==='right') {
-                const x = media.mesh.position.x - media.mesh.scale.x / 2
+                const x = media.mesh.position.x - scaleX
 
                 if (x > this.sizes.width / 2) {
-                    media.extra.x -= this.galleryWidth
+                    media.extra.x -= this.gallerySizes.width
+                }
+            }
+
+            const scaleY = media.mesh.position.y / 2
+
+            if (this.y.direction === 'top') {
+                const y = media.mesh.position.y + scaleY
+                
+                if (y < -this.sizes.height / 2) {
+                    media.extra.y += this.gallerySizes.height
+                }
+            } else if (this.y.direction ==='bottom') {
+                const y = media.mesh.position.y - scaleY
+
+                if (y > this.sizes.height / 2) {
+                    media.extra.y -= this.gallerySizes.height
                 }
             }
 

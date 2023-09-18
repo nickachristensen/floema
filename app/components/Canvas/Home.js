@@ -62,17 +62,21 @@ export default class {
 
     /* Events */
     onResize (event) {
+        
         this.galleryBounds = this.galleryElement.getBoundingClientRect()
-
-        map(this.medias, media => media.onResize(event))
-
+        
         this.sizes = event.sizes
-
+        
         this.gallerySizes = {
-           height: this.galleryBounds.height / window.innerHeight * this.sizes.height,
-           width: this.galleryBounds.width / window.innerWidth * this.sizes.width
-    }
-} 
+            height: this.galleryBounds.height / window.innerHeight * this.sizes.height,
+            width: this.galleryBounds.width / window.innerWidth * this.sizes.width
+        }
+        
+        this.scroll.x = this.x.target = 0
+        this.scroll.y = this.y.target = 0
+
+        map(this.medias, media => media.onResize(event, this.scroll))
+    } 
 
     onTouchDown ({ x, y }) {
         this.scrollCurrent.x = this.scroll.x
@@ -99,6 +103,8 @@ export default class {
 
     /* Update */
     update () {
+        if (!this.galleryBounds) return
+
         this.x.current = GSAP.utils.interpolate(this.x.current, this.x.target, this.x.lerp)
         this.y.current = GSAP.utils.interpolate(this.y.current, this.y.target, this.y.lerp)
 

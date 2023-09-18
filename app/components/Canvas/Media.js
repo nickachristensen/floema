@@ -1,3 +1,4 @@
+import GSAP from 'gsap'
 import { Mesh, Program, Texture } from 'ogl'
 
 import fragment from 'shaders/plane-fragment.glsl'
@@ -48,8 +49,7 @@ export default class {
         })
 
         this.mesh.setParent(this.scene)
-
-        this.mesh.scale.x = 2
+        this.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.03, Math.PI * 0.03)
     }
 
     createBounds ({ sizes }) {

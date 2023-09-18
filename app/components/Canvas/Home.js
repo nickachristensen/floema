@@ -87,10 +87,24 @@ export default class {
         this.x.current = GSAP.utils.interpolate(this.x.current, this.x.target, this.x.lerp)
         this.y.current = GSAP.utils.interpolate(this.y.current, this.y.target, this.y.lerp)
 
+        if (this.scroll.x < this.x.current) {
+            this.x.direction = 'left'
+        } else if (this.scroll.x > this.x.current) {
+            this.x.direction = 'right'
+        }
+
         this.scroll.x = this.x.current
         this.scroll.y = this.y.current
 
-        map(this.medias, media => {
+        map(this.medias, (media, index) => {
+            if (index === 0) {
+                const x = media.mesh.position.x + media.mesh.scale.x / 2
+
+                if (x < -this.sizes.width / 2) {
+                    console.log('outside of the screen', media.mesh.position.x)
+                }
+            }
+
             media.update(this.scroll)
         })
     }

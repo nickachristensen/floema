@@ -42,15 +42,15 @@ export default class {
         map(this.galleries, gallery => gallery.onResize(event))
     } 
 
-    onTouchDown ({ x, y }) {
+    onTouchDown (event) {
         map(this.galleries, gallery => gallery.onTouchDown(event))
     }
 
-    onTouchMove ({ x, y }) {
+    onTouchMove (event) {
         map(this.galleries, gallery => gallery.onTouchMove(event))
     }
 
-    onTouchUp ({ x, y }) {
+    onTouchUp (event) {
         map(this.galleries, gallery => gallery.onTouchUp(event))
     }
 

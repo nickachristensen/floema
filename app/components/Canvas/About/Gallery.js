@@ -1,3 +1,5 @@
+import GSAP from 'gsap'
+
 import map from 'lodash/map'
 
 import Media from './Media'
@@ -45,7 +47,7 @@ export default class Gallery {
         
         this.width = this.bounds.width / window.innerWidth * this.sizes.width
 
-        this.scroll = 0
+        this.scroll.current = this.scroll.target = 0
 
         map(this.medias, media => media.onResize(event, this.scroll))
     } 

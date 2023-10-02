@@ -1,9 +1,12 @@
 import { Camera, Renderer, Transform } from 'ogl'
 
+import About from './About'
 import Home from './Home'
 
 export default class Canvas {
-    constructor () {
+    constructor ({ template }) {
+        this.template = template
+
         this.x = {
             start: 0,
             distance: 0,
@@ -22,7 +25,7 @@ export default class Canvas {
 
         this.onResize()
 
-        this.createHome()
+        this.onRouteUpdate(this.template)
     }
 
     createRenderer () {
@@ -53,7 +56,44 @@ export default class Canvas {
         })
     }
 
+    destroyHome () {
+        if (!this.home) return
+
+        this.home.destroy()
+        this.home = null
+    }
+
+    createAbout () {
+        this.about = new About({
+            gl: this.gl,
+            scene: this.scene,
+            sizes: this.sizes
+        })
+    }
+
+    destroyAbout () {
+        if (!this.about) return
+
+        this.about.destroy()
+        this.about = null
+    }
+
     /*Events*/
+    onRouteUpdate (template) {
+        if (template === 'home') {
+            this.createHome()
+        } else {
+            this.destroyHome()
+        }
+
+        if (template === 'about') {
+            this.createHome()
+        } else if (this.home) {
+            this.home.destroy()
+            this.home = null
+        }
+    }
+
     onResize () {
         this.renderer.setSize(window.innerWidth, window.innerHeight)
 

@@ -95,24 +95,6 @@ export default class Gallery {
                 }
             }
 
-            const scaleY = media.mesh.position.y / 2
-
-            if (this.y.direction === 'top') {
-                const y = media.mesh.position.y + scaleY
-                
-                if (y < -this.sizes.height / 2) {
-                    media.extra.y += this.gallerySizes.height
-                    media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.03, Math.PI * 0.03)
-                }
-            } else if (this.y.direction ==='bottom') {
-                const y = media.mesh.position.y - scaleY
-
-                if (y > this.sizes.height / 2) {
-                    media.extra.y -= this.gallerySizes.height
-                    media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.03, Math.PI * 0.03)
-                }
-            }
-
             media.update(this.scroll)
         })
     }

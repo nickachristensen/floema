@@ -1,3 +1,4 @@
+import { transform } from 'ogl'
 import GSAP from 'gsap'
 
 import map from 'lodash/map'
@@ -13,6 +14,8 @@ export default class Gallery {
         this.scene = scene
         this.sizes = sizes
 
+        this.group = new Transform()
+
         this.scroll = {
             current: 0,
             target: 0,
@@ -21,6 +24,8 @@ export default class Gallery {
         }
         
         this.createMedias()
+
+        this.group.setParent(this.scene)
     }
 
     createMedias () {

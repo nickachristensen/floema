@@ -164,4 +164,10 @@ export default class {
             media.update(this.scroll)
         })
     }
+
+    /* Destory */
+
+    destroy () {
+        //this.group.setParent(null)
+    }
 }

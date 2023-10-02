@@ -88,9 +88,8 @@ export default class Canvas {
 
         if (template === 'about') {
             this.createHome()
-        } else if (this.home) {
-            this.home.destroy()
-            this.home = null
+        } else if (this.about) {
+            this.destroyAbout()
         }
     }
 
@@ -110,10 +109,16 @@ export default class Canvas {
             width
         }
 
+        const values = {
+            size: this.sizes
+        }
+
+        if (this.about){
+            this.about.onResize(values)
+        }
+
         if (this.home){
-            this.home.onResize({
-                size: this.sizes
-            })
+            this.home.onResize(values)
         }
     }
 
@@ -123,11 +128,17 @@ export default class Canvas {
         this.x.start = event.touches ? event.touches[0].clientX : event.clientX
         this.y.start = event.touches ? event.touches[0].clientY : event.clientY
 
+        const values = {
+            x: this.x,
+            y: this.y,
+        }
+
+        if (this.about) {
+            this.about.onTouchDown(values)
+        }
+
         if (this.home) {
-            this.home.onTouchDown({ 
-                x: this.x.start, 
-                y: this.y.start 
-            })
+            this.home.onTouchDown(values)
         }
     }
 
@@ -140,11 +151,17 @@ export default class Canvas {
         this.x.end = x
         this.y.end = y
 
+        const values = {
+            x: this.x,
+            y: this.y,
+        }
+
+        if (this.about) {
+            this.about.onTouchMove(values)
+        }
+
         if (this.home) {
-            this.home.onTouchDown({ 
-                x: this.x, 
-                y: this.y 
-            })
+            this.home.onTouchMove(values)
         }
     }
 
@@ -157,11 +174,17 @@ export default class Canvas {
         this.x.end = x
         this.y.end = y
 
+        const values = {
+            x: this.x,
+            y: this.y,
+        }
+
+        if (this.about) {
+            this.about.onTouchUp(values)
+        }
+
         if (this.home) {
-            this.home.onTouchDown({ 
-                x: this.x, 
-                y: this.y 
-            })
+            this.home.onTouchUp(values)
         }
     }
 
@@ -173,6 +196,10 @@ export default class Canvas {
 
     /*Loop*/
     update () {
+        if (this.about) {
+            this.about.update()
+        }
+
         if (this.home) {
             this.home.update()
         }

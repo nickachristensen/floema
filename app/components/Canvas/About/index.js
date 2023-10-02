@@ -22,7 +22,7 @@ export default class {
         this.geometry = new Plane(this.gl)
     }
 
-    createGallery () {
+    createGalleries () {
         this.galleriesElements = document.querySelectorAll('.about__gallery')
 
         this.galleries = map(this.galleriesElements, (element, index) => {
@@ -60,6 +60,6 @@ export default class {
 
     /* Update */
     update () {
-        mapEach(this.galleries, gallery => gallery.update())
+        map(this.galleries, gallery => gallery.update())
     }
 }

@@ -51,7 +51,6 @@ export default class {
         })
 
         this.mesh.setParent(this.scene)
-        this.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.03, Math.PI * 0.03)
     }
 
     createBounds ({ sizes }) {

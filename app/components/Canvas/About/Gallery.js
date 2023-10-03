@@ -8,6 +8,8 @@ import Media from './Media'
 export default class Gallery {
     constructor ({ element, geometry, index, gl, scene, sizes }) {
         this.element = element
+        this.elementWrapper = element.querySelector('.about_gallery_wrapper')
+
         this.geometry = geometry
         this.index = index
         this.gl = gl
@@ -46,7 +48,7 @@ export default class Gallery {
        /* Events */
        onResize (event) {
         
-        this.bounds = this.element.getBoundingClientRect()
+        this.bounds = this.elementWrapper.getBoundingClientRect()
         
         this.sizes = event.sizes
         
@@ -58,13 +60,13 @@ export default class Gallery {
     } 
 
     onTouchDown ({ x, y }) {
-        this.scroll.current = this.scroll
+        this.scroll.start = this.scroll.current
     }
 
     onTouchMove ({ x, y }) {
-        const xDistance = x.start - x.end
+        const distance = x.start - x.end
 
-        this.scroll.target = this.scroll.current - distance
+        this.scroll.target = this.scroll.start - distance
     }
 
     onTouchUp ({ x, y }) {
@@ -90,19 +92,19 @@ export default class Gallery {
                 const x = media.mesh.position.x + scaleX
                 
                 if (x < -this.sizes.width / 2) {
-                    media.extra.x += this.gallerySizes.width  
-                    media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.03, Math.PI * 0.03)
+                    media.extra += this.width  
                 }
             } else if (this.x.direction ==='right') {
                 const x = media.mesh.position.x - scaleX
 
                 if (x > this.sizes.width / 2) {
-                    media.extra.x -= this.gallerySizes.width
-                    media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.03, Math.PI * 0.03)
+                    media.extra -= this.width
                 }
             }
-
+            
             media.update(this.scroll.current)
+
+            // media.mesh.position.y = Math.cos((media.mesh.position.x / this.width) * Math.PI) * 75 - 75
         })
     }
 }

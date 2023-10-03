@@ -106,6 +106,8 @@ class App {
       this.content.setAttribute('data-template', this.template)
       this.content.innerHTML = divContent.innerHTML
 
+      this.canvas.onChange(this.template)
+
       this.page = this.pages[this.template]
       this.page.create()
 

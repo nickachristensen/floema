@@ -62,4 +62,9 @@ export default class {
     update () {
         map(this.galleries, gallery => gallery.update())
     }
+
+    /* Destroy */
+    destroy () {
+        map(this.galleries, gallery => gallery.destroy())
+    }
 }

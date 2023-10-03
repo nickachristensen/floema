@@ -79,7 +79,7 @@ export default class Canvas {
     }
 
     /*Events*/
-    onRouteUpdate (template) {
+    onChange (template) {
         if (template === 'home') {
             this.createHome()
         } else {

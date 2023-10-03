@@ -107,4 +107,9 @@ export default class Gallery {
             // media.mesh.position.y = Math.cos((media.mesh.position.x / this.width) * Math.PI) * 75 - 75
         })
     }
+
+    /* Destory */
+    destroy () {
+        this.scene.removeChild(this.group)
+    }
 }

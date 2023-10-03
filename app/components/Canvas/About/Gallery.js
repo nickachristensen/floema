@@ -31,7 +31,7 @@ export default class Gallery {
     createMedias () {
         this.mediasElements = this.element.querySelectorAll('.about__gallery__media')
 
-        this.media = map(this.mediasElements, (element, index) => {
+        this.medias = map(this.mediasElements, (element, index) => {
             return new Media({
                 element,
                 geometry: this.geometry,
@@ -54,7 +54,7 @@ export default class Gallery {
 
         this.scroll.current = this.scroll.target = 0
 
-        map(this.medias, media => media.onResize(event, this.scroll))
+        map(this.medias, media => media.onResize(event, this.scroll.current))
     } 
 
     onTouchDown ({ x, y }) {
@@ -102,7 +102,7 @@ export default class Gallery {
                 }
             }
 
-            media.update(this.scroll)
+            media.update(this.scroll.current)
         })
     }
 }

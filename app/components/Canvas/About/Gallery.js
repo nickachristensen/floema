@@ -45,18 +45,28 @@ export default class Gallery {
         })
     }
 
-       /* Events */
-       onResize (event) {
-        
-        this.bounds = this.elementWrapper.getBoundingClientRect()
-        
-        this.sizes = event.sizes
-        
-        this.width = this.bounds.width / window.innerWidth * this.sizes.width
+    /* Animations */
+    show () {
+        map(this.medias, media => media.show())
+    }
 
-        this.scroll.current = this.scroll.target = 0
+    hide () {
+        map(this.medias, media => media.hide())
+    }
+    
 
-        map(this.medias, media => media.onResize(event, this.scroll.current))
+    /* Events */
+    onResize (event) {
+    
+    this.bounds = this.elementWrapper.getBoundingClientRect()
+    
+    this.sizes = event.sizes
+    
+    this.width = this.bounds.width / window.innerWidth * this.sizes.width
+
+    this.scroll.current = this.scroll.target = 0
+
+    map(this.medias, media => media.onResize(event, this.scroll.current))
     } 
 
     onTouchDown ({ x, y }) {

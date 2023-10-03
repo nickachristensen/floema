@@ -16,6 +16,8 @@ export default class {
         this.createGalleries()
 
         this.group.setParent(scene)
+
+        this.show()
     }
 
     createGeometry() {
@@ -35,6 +37,15 @@ export default class {
                 sizes: this.sizes
             })
         })
+    }
+
+    /* Animations */
+    show () {
+        map(this.galleries, gallery => gallery.show())
+    }
+
+    hide () {
+        map(this.galleries, gallery => gallery.hide())
     }
 
     /* Events */

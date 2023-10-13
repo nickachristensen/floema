@@ -207,9 +207,9 @@ export default class Canvas {
     }
 
     /*Loop*/
-    update () {
+    update (scroll) {
         if (this.about) {
-            this.about.update()
+            this.about.update(scroll)
         }
 
         if (this.home) {

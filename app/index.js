@@ -167,12 +167,12 @@ class App {
 
   /*Loop*/
   update () {
-    if (this.canvas && this.canvas.update) {
+    if (this.canvas && this.page.update) {
       this.canvas.update()
     }
 
-    if (this.page && this.page.update) {
-      this.page.update()
+    if (this.page && this.canvas.update) {
+      this.page.update(this.page.scroll)
     }
 
     this.frame = window.requestAnimationFrame(this.update.bind(this))

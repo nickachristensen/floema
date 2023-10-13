@@ -84,7 +84,7 @@ export default class Gallery {
     }
 
     /* Update */
-    update () {
+    update (y) {
         if (!this.bounds) return
         
         if (this.scroll.current < this.scroll.target) {
@@ -116,6 +116,8 @@ export default class Gallery {
 
             // media.mesh.position.y = Math.cos((media.mesh.position.x / this.width) * Math.PI) * 75 - 75
         })
+
+        this.group.position.y = y
     }
 
     /* Destory */

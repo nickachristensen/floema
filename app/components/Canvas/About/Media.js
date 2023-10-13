@@ -103,6 +103,12 @@ export default class {
     }
 
     /* Loop */
+    updateRotation () {
+        const rotation = GSAP.utils.mapRange(-this.sizes.width / 2, this.sizes.width / 2, Math.PI, -Math.PI, this.mesh.position.x)
+
+        this.mesh.rotation.z = rotation
+    }
+
     updateScale () {
         this.height = this.bounds.height / window.innerHeight
         this.width = this.bounds.width / window.innerWidth
@@ -125,7 +131,8 @@ export default class {
 
     update (scroll) {
         if (!this.bounds) return
-        
+
+        this.updateRotation()
         this.updateX(scroll)
         this.updateY(0)
     }

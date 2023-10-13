@@ -117,7 +117,7 @@ export default class Gallery {
             // media.mesh.position.y = Math.cos((media.mesh.position.x / this.width) * Math.PI) * 75 - 75
         })
 
-        this.group.position.y = y
+        this.group.position.y = y * this.sizes.height
     }
 
     /* Destory */

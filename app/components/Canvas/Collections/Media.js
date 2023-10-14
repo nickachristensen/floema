@@ -26,9 +26,11 @@ export default class {
     createTexture () {
         this.texture = new Texture(this.gl)
 
+        const image = this.element.querySelector('.collections__gallery__media__image')
+
         this.image = new window.Image()
         this.image.crossOrigin = 'anonymous'
-        this.image.src = this.element.getAttribute('data-src')
+        this.image.src = image.getAttribute('data-src')
         this.image.onload = () => (this.texture.image = this.image)
     }
 

@@ -34,14 +34,23 @@
 .collections__gallery__wrapper {
   align-items: center;
   display: flex;
+  left: 50%;
   top: 50%;
   position: absolute;
-  transform: translateY(-50%);
+  transform: translate(-44.7rem * 0.5, -50%);
 }
 
 .collections__gallery__link {
   display: block;
   margin: 0 5.3rem;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
 }
 
 .collections__gallery__media {

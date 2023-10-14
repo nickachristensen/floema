@@ -52,7 +52,6 @@ export default class {
         })
 
         this.mesh.setParent(this.scene)
-        this.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.03, Math.PI * 0.03)
     }
 
     createBounds ({ sizes }) {
@@ -115,7 +114,7 @@ export default class {
     update (scroll) {
         if (!this.bounds) return
         
-        this.updateX(scroll.x)
-        this.updateY(scroll.y)
+        this.updateX(scroll)
+        this.updateY()
     }
 }

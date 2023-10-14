@@ -26,11 +26,9 @@ export default class {
     createTexture () {
         this.texture = new Texture(this.gl)
 
-        const image = this.element.querySelector('img')
-
         this.image = new window.Image()
         this.image.crossOrigin = 'anonymous'
-        this.image.src = image.getAttribute('data-src')
+        this.image.src = this.element.getAttribute('data-src')
         this.image.onload = () => (this.texture.image = this.image)
     }
 
@@ -39,7 +37,7 @@ export default class {
             fragment,
             vertex,
             uniforms: {
-                uAlpha: { value: 0 },
+                uAplha: { value: 0 },
                 tMap: { value: this.texture }
             }
         })
@@ -52,6 +50,7 @@ export default class {
         })
 
         this.mesh.setParent(this.scene)
+        this.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.03, Math.PI * 0.03)
     }
 
     createBounds ({ sizes }) {
@@ -61,30 +60,6 @@ export default class {
         this.updateScale(sizes)
         this.updateX()
         this.updateY()
-    }
-
-        /* Animations */
-    show () {
-        GSAP.fromTo(this.program.uniforms.uAlpha, {
-            value: 0
-        }, {
-            value: 1
-        })
-    }
-
-    hide () {
-        GSAP.to(this.program.uniforms.uAlpha, {
-            value: 0
-        })
-    }
-
-    /* Events */
-    onResize (sizes, scroll) {
-        this.extra = 0
-        
-        this.createBounds(sizes)
-        this.updateX(scroll && scroll.x)
-        this.updateY(scroll && scroll.y)
     }
 
     /* Animations */
@@ -102,17 +77,19 @@ export default class {
         })
     }
 
-    /* Loop */
-    updateRotation () {
-        this.mesh.rotation.z = GSAP.utils.mapRange(
-            -this.sizes.width / 2, 
-            this.sizes.width / 2, 
-            Math.PI * 0.1, 
-            -Math.PI * 0.1, 
-            this.mesh.position.x
-        )
+    /* Events */
+    onResize (sizes, scroll) {
+        this.extra = {
+            x: 0,
+            y: 0
+        }
+        
+        this.createBounds(sizes)
+        this.updateX(scroll && scroll.x)
+        this.updateY(scroll && scroll.y)
     }
 
+    /* Loop */
     updateScale () {
         this.height = this.bounds.height / window.innerHeight
         this.width = this.bounds.width / window.innerWidth
@@ -124,22 +101,19 @@ export default class {
     updateX (x = 0) {
         this.x = (this.bounds.left + x)/ window.innerWidth
 
-        this.mesh.position.x = (-this.sizes.width / 2) + (this.mesh.scale.x / 2) + (this.x * this.sizes.width) + this.extra
+        this.mesh.position.x = (-this.sizes.width / 2) + (this.mesh.scale.x / 2) + (this.x * this.sizes.width) + this.extra.x
     }
 
     updateY (y = 0) {
         this.y = (this.bounds.top + y) / window.innerHeight
 
-        this.mesh.position.y = (this.sizes.height / 2) - (this.mesh.scale.y / 2) - (this.y * this.sizes.height)
-        this.mesh.position.y += Math.cos(this.mesh.position.x / this.sizes.width * Math.PI * 0.1) * 40 - 40
+        this.mesh.position.y = (this.sizes.height / 2) - (this.mesh.scale.y / 2) - (this.y * this.sizes.height) + this.extra.y
     }
 
     update (scroll) {
         if (!this.bounds) return
-
-        this.updateRotation()
-        this.updateScale()
-        this.updateX(scroll)
-        this.updateY(0)
+        
+        this.updateX(scroll.x)
+        this.updateY(scroll.y)
     }
 }

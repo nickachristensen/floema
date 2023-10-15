@@ -1,5 +1,6 @@
 import { Plane, Transform } from 'ogl'
 import GSAP from 'gsap'
+import Prefix from 'prefix'
 
 import map from 'lodash/map'
 
@@ -11,9 +12,13 @@ export default class {
         this.scene = scene
         this.sizes = sizes
 
+        this.transformPrefix = Prefix('trasnform')
+
         this.group = new Transform()
 
         this.galleryElement = document.querySelector('.collections__gallery__wrapper')
+
+        this.titlesElement = document.querySelector('.collections_titles')
 
         this.collectionsElements = document.querySelectorAll('.collections__article')
         this.collectionsElementsActive = 'collections__article--active'
@@ -110,6 +115,8 @@ export default class {
                 element.classList.remove(this.collectionsElementsActive)
             }
         })
+
+        this.titlesElement.style[this.transformPrefix] = `translateY(-${25 * selectedCollection}%) translate(-50%, -50%) rotate(-90deg)`
     }
 
 

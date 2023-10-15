@@ -8,6 +8,8 @@
 .collections__wrapper {
   @extend %cover;
 
+  transition: transform 1s ease;
+
   overflow: hidden;
 }
 

@@ -31,6 +31,8 @@
 
 .collections__gallery {
   @extend %cover;
+
+  z-index: 1;
 }
 
 .collections__gallery__wrapper {
@@ -58,6 +60,7 @@
 .collections__gallery__media {
   height: 63.1rem;
   position: relative;
+  visibility: hidden;
   width: 44.7rem;
 }
 

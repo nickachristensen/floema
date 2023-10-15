@@ -109,6 +109,7 @@ app.get('/about', async (req, res) => {
 app.get('/detail/:uid', async (req, res) => {
   const api = await initApi(req)
   const defaults = await handleRequest(api)
+  const home = await api.getSingle('home')
 
   const product = await api.getByUID('product', req.params.uid, {
     fetchLinks: 'collection.title'
@@ -116,7 +117,8 @@ app.get('/detail/:uid', async (req, res) => {
 
   res.render('pages/detail', {
     ...defaults,
-    product
+    product,
+    home
   })
 })
 

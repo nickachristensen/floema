@@ -14,6 +14,10 @@ export default class {
         this.group = new Transform()
 
         this.galleryElement = document.querySelector('.collections__gallery__wrapper')
+
+        this.collectionsElements = document.querySelectorAll('.collections__article')
+        this.collectionsElementsActive = 'collections__article--active'
+
         this.mediasElements = document.querySelectorAll('.collections__gallery__media')
 
         this.scroll = {
@@ -92,6 +96,24 @@ export default class {
         this.y.target += pixelY
     }
 
+    /* Change */
+
+    onChange (index) {
+        this.index = index
+
+        const selectedCollection = parseInt(this.mediasElements[this.index].getAttribute('data-index'))
+
+        map(this.collectionsElements, (element, elementIndex) => {
+            if (elementIndex === selectedCollection) {
+                element.claassList.add(this.collectionsElementsActive)
+            } else {
+                element.classList.remove(this.collectionsElementsActive)
+            }
+        })
+    }
+
+
+
     /* Update */
     update () {
         if (!this.bounds) return
@@ -111,6 +133,12 @@ export default class {
         map(this.medias, (media, index) => {
             media.update(this.scrol.current)
         })
+
+        const index = Math.floor(Math.abs(this.scroll.current / this.scroll.limit) * this.medias.length)
+
+        if (this.index !== index) {
+            this.onChange(index)
+        }
     }
 
     /* Destory */

@@ -18,9 +18,9 @@ class App {
   constructor() {
     this.createContent()
 
+    this.createCanvas()
     this.createPreloader()
     this.createNavigation()
-    this.createCanvas()
     this.createPages()
 
     this.addEventListeners()
@@ -38,7 +38,10 @@ class App {
   }
 
   createPreloader() {
-    this.preloader = new Preloader()
+    this.preloader = new Preloader({
+      canvas: this.canvas
+    })
+    
     this.preloader.once('completed', this.onPreloaded.bind(this))
   }
 

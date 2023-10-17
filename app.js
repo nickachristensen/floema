@@ -76,7 +76,7 @@ const handleRequest = async api => {
     fetchLinks: 'product.image'
   })
 
-  let assests = []
+  const assests = []
 
   home.data.gallery.forEach(item => {
     assests.push(item.image.url)
@@ -101,6 +101,7 @@ const handleRequest = async api => {
   })
 
   return {
+    about,
     assests,
     collections,
     home,
@@ -119,8 +120,7 @@ app.get('/', async (req, res) => {
   })
 
   res.render('pages/home', {
-    ...defaults,
-    collections
+    ...defaults
   })
 })
 
@@ -129,6 +129,17 @@ app.get('/about', async (req, res) => {
   const defaults = await handleRequest(api)
 
   res.render('pages/about', {
+    ...defaults
+  })
+})
+
+app.get('/collections', async (req, res) => {
+  const api = await initApi(req)
+  const defaults = await handleRequest(api)
+
+  console.log(collections)
+
+  res.render('pages/collections', {
     ...defaults
   })
 })
@@ -144,17 +155,6 @@ app.get('/detail/:uid', async (req, res) => {
   res.render('pages/detail', {
     ...defaults,
     product
-  })
-})
-
-app.get('/collections', async (req, res) => {
-  const api = await initApi(req)
-  const defaults = await handleRequest(api)
-
-  console.log(collections)
-
-  res.render('pages/collections', {
-    ...defaults
   })
 })
 

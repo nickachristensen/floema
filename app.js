@@ -66,12 +66,43 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
 const handleRequest = async api => {
+  const about = await api.getSingle('about')
   const home = await api.getSingle('home')
   const meta = await api.getSingle('meta')
   const navigation = await api.getSingle('navigation')
   const preloader = await api.getSingle('preloader')
 
+  const { results: collections } = await api.query(Prismic.Predicates.at('document.type', 'collection'), {
+    fetchLinks: 'product.image'
+  })
+
+  let assests = []
+
+  home.data.gallery.forEach(item => {
+    assests.push(item.image.url)
+  })
+
+  about.data.gallery.forEach(item => {
+    assests.push(item.image.url)
+  })
+
+  about.data.body.forEach(section => {
+    if (section.slice_type === 'gallery'){
+      section.items.forEach(item => {
+        assests.push(item.image.url)
+      })
+    }
+  })
+
+  collections.forEach(collection => {
+    collection.data.products.forEach(item => {
+      assests.push(item.products__product.data.image.url)
+    })
+  })
+
   return {
+    assests,
+    collections,
     home,
     meta,
     navigation,
@@ -95,12 +126,10 @@ app.get('/', async (req, res) => {
 
 app.get('/about', async (req, res) => {
   const api = await initApi(req)
-  const about = await api.getSingle('about')
   const defaults = await handleRequest(api)
 
   res.render('pages/about', {
-    ...defaults,
-    about
+    ...defaults
   })
 })
 
@@ -122,15 +151,10 @@ app.get('/collections', async (req, res) => {
   const api = await initApi(req)
   const defaults = await handleRequest(api)
 
-  const { results: collections } = await api.query(Prismic.Predicates.at('document.type', 'collection'), {
-    fetchLinks: 'product.image'
-  })
-
   console.log(collections)
 
   res.render('pages/collections', {
-    ...defaults,
-    collections
+    ...defaults
   })
 })
 

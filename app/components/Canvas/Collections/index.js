@@ -141,7 +141,7 @@ export default class {
         this.scroll.last = this.scroll.current
 
         map(this.medias, (media, index) => {
-            media.update(this.scrol.current)
+            media.update(this.scroll.current)
         })
 
         const index = Math.floor(Math.abs(this.scroll.current / this.scroll.limit) * this.medias.length)

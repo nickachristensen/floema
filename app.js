@@ -66,11 +66,13 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
 const handleRequest = async api => {
+  const home = await api.getSingle('home')
   const meta = await api.getSingle('meta')
   const navigation = await api.getSingle('navigation')
   const preloader = await api.getSingle('preloader')
 
   return {
+    home,
     meta,
     navigation,
     preloader
@@ -79,10 +81,7 @@ const handleRequest = async api => {
 
 app.get('/', async (req, res) => {
   const api = await initApi(req)
-  const home = await api.getSingle('home')
   const defaults = await handleRequest(api)
-
-  console.log(defaults)
 
   const { results: collections } = await api.query(Prismic.Predicates.at('document.type', 'collection'), {
     fetchLinks: 'product.image'
@@ -90,8 +89,7 @@ app.get('/', async (req, res) => {
 
   res.render('pages/home', {
     ...defaults,
-    collections,
-    home
+    collections
   })
 })
 
@@ -109,7 +107,6 @@ app.get('/about', async (req, res) => {
 app.get('/detail/:uid', async (req, res) => {
   const api = await initApi(req)
   const defaults = await handleRequest(api)
-  const home = await api.getSingle('home')
 
   const product = await api.getByUID('product', req.params.uid, {
     fetchLinks: 'collection.title'
@@ -117,15 +114,13 @@ app.get('/detail/:uid', async (req, res) => {
 
   res.render('pages/detail', {
     ...defaults,
-    product,
-    home
+    product
   })
 })
 
 app.get('/collections', async (req, res) => {
   const api = await initApi(req)
   const defaults = await handleRequest(api)
-  const home = await api.getSingle('home')
 
   const { results: collections } = await api.query(Prismic.Predicates.at('document.type', 'collection'), {
     fetchLinks: 'product.image'
@@ -135,8 +130,7 @@ app.get('/collections', async (req, res) => {
 
   res.render('pages/collections', {
     ...defaults,
-    collections,
-    home
+    collections
   })
 })
 

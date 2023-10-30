@@ -64,7 +64,7 @@ export default class {
         GSAP.fromTo(this.program.uniforms.uAlpha, {
             value: 0
         }, {
-            value: 1
+            value: 0.4
         })
     }
 

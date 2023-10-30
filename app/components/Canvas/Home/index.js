@@ -47,7 +47,10 @@ export default class {
     }
 
     createGeometry() {
-        this.geometry = new Plane(this.gl)
+        this.geometry = new Plane(this.gl, {
+            heightSegments: 20,
+            widthSegments: 20
+        })
     }
 
     createGallery () {

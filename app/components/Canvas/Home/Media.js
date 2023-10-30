@@ -1,8 +1,8 @@
 import GSAP from 'gsap'
 import { Mesh, Program } from 'ogl'
 
-import fragment from 'shaders/plane-fragment.glsl'
-import vertex from 'shaders/plane-vertex.glsl'
+import fragment from 'shaders/home-fragment.glsl'
+import vertex from 'shaders/home-vertex.glsl'
 
 export default class {
     constructor ({ element, geometry, gl, index, scene, sizes }) {
@@ -35,6 +35,7 @@ export default class {
             vertex,
             uniforms: {
                 uAplha: { value: 0 },
+                uViewportSizes: { value: [this.sizes.width, this.sizes.height] },
                 tMap: { value: this.texture }
             }
         })

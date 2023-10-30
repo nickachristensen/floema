@@ -38,6 +38,12 @@ export default class {
             y: 0
         }
 
+        this.speed = {
+            current: 0,
+            lerp: 0.1,
+            target: 0    
+        }
+
         this.createGeometry()
         this.createGallery()
 
@@ -94,6 +100,8 @@ export default class {
     } 
 
     onTouchDown ({ x, y }) {
+        this.speed.target = 1
+
         this.scrollCurrent.x = this.scroll.x
         this.scrollCurrent.y = this.scroll.y
 
@@ -108,7 +116,7 @@ export default class {
     }
 
     onTouchUp ({ x, y }) {
-        
+        this.speed.target = 0
     }
 
     onWheel ({ pixelX, pixelY }) {
@@ -123,7 +131,9 @@ export default class {
         const a = this.x.target - this.x.current
         const b = this.y.target - this.y.current
 
-        const speed = Math.sqrt(a * a + b * b) * 0.001
+        // const speed = Math.sqrt(a * a + b * b) * 0.001
+
+        this.speed.current = GSAP.utils.interpolate(this.speed.current, this.speed.target, this.speed.lerp)
 
         this.x.current = GSAP.utils.interpolate(this.x.current, this.x.target, this.x.lerp)
         this.y.current = GSAP.utils.interpolate(this.y.current, this.y.target, this.y.lerp)
@@ -180,7 +190,7 @@ export default class {
                 }
             }
 
-            media.update(this.scroll, speed)
+            media.update(this.scroll, this.speed.current)
         })
     }
 

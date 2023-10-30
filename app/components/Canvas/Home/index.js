@@ -120,6 +120,11 @@ export default class {
     update () {
         if (!this.galleryBounds) return
 
+        const a = this.x.target - this.x.current
+        const b = this.y.target - this.y.current
+
+        const speed = Math.sqrt(a * a + b * b) * 0.001
+
         this.x.current = GSAP.utils.interpolate(this.x.current, this.x.target, this.x.lerp)
         this.y.current = GSAP.utils.interpolate(this.y.current, this.y.target, this.y.lerp)
 
@@ -134,7 +139,6 @@ export default class {
         } else if (this.scroll.y > this.y.current) {
             this.y.direction = 'bottom'
         }
-
 
         this.scroll.x = this.x.current
         this.scroll.y = this.y.current
@@ -176,7 +180,7 @@ export default class {
                 }
             }
 
-            media.update(this.scroll)
+            media.update(this.scroll, speed)
         })
     }
 

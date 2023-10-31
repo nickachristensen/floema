@@ -100,8 +100,6 @@ export default class {
     } 
 
     onTouchDown ({ x, y }) {
-        this.speed.target = 1
-
         this.scrollCurrent.x = this.scroll.x
         this.scrollCurrent.y = this.scroll.y
 
@@ -116,7 +114,7 @@ export default class {
     }
 
     onTouchUp ({ x, y }) {
-        this.speed.target = 0
+
     }
 
     onWheel ({ pixelX, pixelY }) {
@@ -131,7 +129,7 @@ export default class {
         const a = this.x.target - this.x.current
         const b = this.y.target - this.y.current
 
-        // const speed = Math.sqrt(a * a + b * b) * 0.001
+        this.speed.target = Math.sqrt(a * a + b * b) * 0.001
 
         this.speed.current = GSAP.utils.interpolate(this.speed.current, this.speed.target, this.speed.lerp)
 
@@ -154,37 +152,39 @@ export default class {
         this.scroll.y = this.y.current
 
         map(this.medias, (media, index) => {
+            const offsetX = -this.sizes.width * 0.6
             const scaleX = media.mesh.position.x / 2
 
             if (this.x.direction === 'left') {
                 const x = media.mesh.position.x + scaleX
                 
-                if (x < -this.sizes.width / 2) {
+                if (x < -offsetX) {
                     media.extra.x += this.gallerySizes.width  
                     media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.03, Math.PI * 0.03)
                 }
             } else if (this.x.direction ==='right') {
                 const x = media.mesh.position.x - scaleX
 
-                if (x > this.sizes.width / 2) {
+                if (x > offsetX) {
                     media.extra.x -= this.gallerySizes.width
                     media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.03, Math.PI * 0.03)
                 }
             }
 
+            const offsetY = -this.sizes.height * 0.6
             const scaleY = media.mesh.position.y / 2
 
             if (this.y.direction === 'top') {
                 const y = media.mesh.position.y + scaleY
                 
-                if (y < -this.sizes.height / 2) {
+                if (y < -offsetY) {
                     media.extra.y += this.gallerySizes.height
                     media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.03, Math.PI * 0.03)
                 }
             } else if (this.y.direction ==='bottom') {
                 const y = media.mesh.position.y - scaleY
 
-                if (y > this.sizes.height / 2) {
+                if (y > offsetY) {
                     media.extra.y -= this.gallerySizes.height
                     media.mesh.rotation.z = GSAP.utils.random(-Math.PI * 0.03, Math.PI * 0.03)
                 }

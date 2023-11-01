@@ -86,7 +86,7 @@ class App {
   }
 
   async onChange({ url, push = true }) {
-    this.canvas.onChangeStart(this.tempalte)
+    this.canvas.onChangeStart(this.tempalte, url)
     
     await this.page.hide()
 

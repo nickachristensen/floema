@@ -24,7 +24,7 @@ export default class {
     }
 
     createTexture () {
-        const image = this.element
+        const image = this.element.querySelector('collections__gallery__media__image')
 
         this.texture = window.TEXTURES[image.getAttribute('data-src')]
     }
@@ -109,12 +109,10 @@ export default class {
         this.mesh.position.y = (this.sizes.height / 2) - (this.mesh.scale.y / 2) - (this.y * this.sizes.height) + this.extra.y
     }
 
-    update (scroll, speed) {
+    update (scroll) {
         if (!this.bounds) return
         
         this.updateX(scroll.x)
         this.updateY(scroll.y)
-
-        this.program.unifroms.uSpeed.valure = speed
     }
 }

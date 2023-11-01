@@ -152,6 +152,8 @@ export default class Canvas {
             this.destroyHome()
         }
 
+        this.template = template
+
     }
 
     onResize () {

@@ -17,17 +17,12 @@ export default class {
         this.createTexture()
         this.createProgram()
         this.createMesh()
-
-        this.extra = {
-            x:0,
-            y:0
-        }
     }
 
     createTexture () {
-        const image = this.element.querySelector('collections__gallery__media__image')
+        const { index, medias } = this.collections
 
-        this.texture = window.TEXTURES[image.getAttribute('data-src')]
+        this.media = medias[index]
     }
 
     createProgram () {
@@ -36,7 +31,7 @@ export default class {
             vertex,
             uniforms: {
                 uAplha: { value: 1 },
-                tMap: { value: this.texture }
+                tMap: { value: this.media.texture }
             }
         })
     }
@@ -47,13 +42,19 @@ export default class {
             program: this.program
         })
 
+        this.mesh.scale.x = this.media.mesh.scale.x
+        this.mesh.scale.y = this.media.mesh.scale.y
+        this.mesh.scale.z = this.media.mesh.scale.z
+
+        this.mesh.position.z = this.media.mesh.position.z + 0.01
+
         this.mesh.setParent(this.scene)
     }
 
 
     /* Animations */
     transition () {
-
+        
     }
 
 }

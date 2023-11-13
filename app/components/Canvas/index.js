@@ -205,6 +205,10 @@ export default class Canvas {
             this.collections.onResize(values)
         }
 
+        if (this.detail){
+            this.detail.onResize(values)
+        }
+
         if (this.home){
             this.home.onResize(values)
         }
@@ -227,6 +231,10 @@ export default class Canvas {
 
         if (this.collections) {
             this.collections.onTouchDown(values)
+        }
+
+        if (this.detail) {
+            this.detail.onTouchDown(values)
         }
 
         if (this.home) {
@@ -256,6 +264,10 @@ export default class Canvas {
             this.collections.onTouchMove(values)
         }
 
+        if (this.detail) {
+            this.detail.onTouchMove(values)
+        }
+
         if (this.home) {
             this.home.onTouchMove(values)
         }
@@ -283,6 +295,10 @@ export default class Canvas {
             this.collections.onTouchUp(values)
         }
 
+        if (this.detail) {
+            this.detail.onTouchUp(values)
+        }
+
         if (this.home) {
             this.home.onTouchUp(values)
         }
@@ -306,6 +322,10 @@ export default class Canvas {
 
         if (this.collections) {
             this.collections.update()
+        }
+
+        if (this.detail) {
+            this.detail.update()
         }
 
         if (this.home) {

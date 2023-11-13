@@ -1,3 +1,4 @@
+import GSAP from 'gsap'
 import { Camera, Renderer, Transform } from 'ogl'
 
 import About from './About'
@@ -157,12 +158,23 @@ export default class Canvas {
 
         if (template === 'collections') {
             this.createCollections()
+
+            if (this.transition) {
+                this.transition.animateCollections(this.collections)
+            }
         } else if (this.collections) {
             this.destroyCollections()
         }
 
-        if (template === 'details') {
+        if (template === 'detail') {
             this.createDetails()
+
+            GSAP.delayedCall( 0.5, () => {
+                if (this.transition) {
+                    this.transition.animateDetail(this.detail)
+                }
+            })
+
         } else if (this.details) {
             this.destroyDetails()
         }

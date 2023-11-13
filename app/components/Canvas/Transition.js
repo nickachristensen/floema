@@ -53,8 +53,21 @@ export default class {
 
 
     /* Animations */
-    transition () {
-        
-    }
+    anmateDetail () {
+        GSAP.to(this.mesh.scale, {
+            duration: 1.5,
+            ease: 'expo.inOut',
+            x: element.mesh.scale.x,
+            y: element.mesh.scale.y,
+            z: element.mesh.scale.z
+        })
 
+        GSAP.to(this.mesh.position, {
+            duration: 1.5,
+            ease: 'expo.inOut',
+            x: element.mesh.position.x,
+            y: element.mesh.position.y,
+            z: element.mesh.position.z
+        })
+    }
 }

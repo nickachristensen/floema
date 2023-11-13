@@ -71,6 +71,18 @@ export default class {
         this.updateY()
     }
 
+    onTouchDown() {
+
+    }
+
+    onTouchMove () {
+
+    }
+
+    onTouchUp () {
+        
+    }
+
     /* Loop */
     updateScale () {
         this.height = this.bounds.height / window.innerHeight

@@ -90,6 +90,26 @@ export default class {
                 y: element.position.y,
                 z: element.position.z
             }, 0)
+        } else {
+            const timeline = GSAP.timeline({
+                onComplete
+            })
+
+            timeline.to(this.mesh.scale, {
+                duration: 1.5,
+                ease: 'expo.inOut',      
+                x: element.scale.x,
+                y: element.scale.y,
+                z: element.scale.z
+            }, 0)
+
+            timeline.to(this.mesh.position, {
+                duration: 1.5,
+                ease: 'expo.inOut',
+                x: element.position.x,
+                y: element.position.y,
+                z: element.position.z
+            }, 0)
         }
     }
 }

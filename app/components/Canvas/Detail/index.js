@@ -66,6 +66,11 @@ export default class {
             this.transition.animate(this.mesh, () => {
                 this.program.uniforms.uAlpha.value = 1
             })
+        } else {
+            GSAP.to(this.program.uniforms.uAlpha, {
+                duration: 1,
+                value: 1
+            })
         }
     }
 
@@ -113,10 +118,13 @@ export default class {
         this.mesh.position.y = (this.sizes.height / 2) - (this.mesh.scale.y / 2) - (this.y * this.sizes.height)
     }
 
-    update () {
-        if (!this.bounds) return
-        
+    update () {  
         this.updateX(scroll)
         this.updateY()
+    }
+
+    /* Destroy */
+    destroy () {
+        this.scene.removeChild(this.mesh)
     }
 }

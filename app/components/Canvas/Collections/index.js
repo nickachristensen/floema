@@ -7,11 +7,12 @@ import map from 'lodash/map'
 import Media from './Media'
 
 export default class {
-    constructor ({ gl, scene, sizes, id }) {
+    constructor ({ gl, scene, sizes, transition }) {
         this.id = 'collections'
         this.gl = gl
         this.scene = scene
         this.sizes = sizes
+        this.transition = transition
 
         this.transformPrefix = Prefix('trasnform')
 
@@ -38,6 +39,10 @@ export default class {
         this.createGeometry()
         this.createGallery()
 
+        this.onResize({
+            sizes: this.sizes
+        })
+
         this.group.setParent(this.scene)
 
         this.show()
@@ -62,6 +67,12 @@ export default class {
 
     /* Animations */
     show () {
+        if (this.transition) {
+            this.transition.animate(this.medias[0].mesh, () => {
+                this.program.uniforms.uAlpha.value = 1
+            })
+        }
+
         map(this.medias, media => media.show())
     }
 

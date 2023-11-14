@@ -1,5 +1,5 @@
 import GSAP from 'gsap'
-import { pluginName } from 'mini-css-extract-plugin'
+
 import { Mesh, Plane,  Program } from 'ogl'
 
 import fragment from 'shaders/plane-fragment.glsl'
@@ -121,6 +121,20 @@ export default class {
     update () {  
         this.updateX(scroll)
         this.updateY()
+    }
+
+    show () {
+      const timeline = GSAP.timeline({
+        delay: 2
+      })
+
+        this.animationIn.fromTo(this.element, {
+            autoAlpha: 0,
+          },{
+            autoAlpha: 1,
+          })
+
+          super.show(timeline)
     }
 
     /* Destroy */

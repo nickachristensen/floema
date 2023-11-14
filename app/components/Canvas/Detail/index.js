@@ -6,18 +6,23 @@ import fragment from 'shaders/plane-fragment.glsl'
 import vertex from 'shaders/plane-vertex.glsl'
 
 export default class {
-    constructor ({ gl, scene, sizes }) {
+    constructor ({ gl, scene, sizes, transition, id }) {
         this.element = document.querySelector('.detail__media__image')
         
+        this.id = 'detail'
         this.gl = gl
         this.scene = scene
         this.sizes = sizes
+        this.transition = transition
 
         this.geometry = new Plane()
         
         this.createTexture()
         this.createProgram()
         this.createMesh()
+        this.createBounds({ sizes: this.sizes })
+
+        this.show()
     }
 
     createTexture () {
@@ -31,7 +36,7 @@ export default class {
             fragment,
             vertex,
             uniforms: {
-                uAplha: { value: 1 },
+                uAplha: { value: 0 },
                 tMap: { value: this.texture }
             }
         })
@@ -57,7 +62,11 @@ export default class {
 
     /* Animations */
     show () {
-
+        if (this.transition) {
+            this.transition.animate(this.mesh, () => {
+                this.program.uniforms.uAlpha.value = 1
+            })
+        }
     }
 
     hide () {

@@ -7,7 +7,8 @@ import map from 'lodash/map'
 import Media from './Media'
 
 export default class {
-    constructor ({ gl, scene, sizes }) {
+    constructor ({ gl, scene, sizes, id }) {
+        this.id = 'collections'
         this.gl = gl
         this.scene = scene
         this.sizes = sizes

@@ -104,7 +104,8 @@ export default class Canvas {
         this.detail = new Detail({
             gl: this.gl,
             scene: this.scene,
-            sizes: this.sizes
+            sizes: this.sizes,
+            transition: this.transition
         })
     }
 
@@ -140,12 +141,13 @@ export default class Canvas {
 
         if (this.isFromCollectionsToDetail || this.isFromDetailToCollections) {
             this.transition = new Transition({
-                collections: this.collections,
                 gl: this.gl,
                 scene: this.scene,
                 sizes: this.sizes,
                 url
             })
+
+            this.transition.setElement(this.collections || this.detail)
         }
     }
 
@@ -158,22 +160,12 @@ export default class Canvas {
 
         if (template === 'collections') {
             this.createCollections()
-
-            if (this.transition) {
-                this.transition.animateCollections(this.collections)
-            }
         } else if (this.collections) {
             this.destroyCollections()
         }
 
         if (template === 'detail') {
             this.createDetails()
-
-            GSAP.delayedCall( 0.5, () => {
-                if (this.transition) {
-                    this.transition.animateDetail(this.detail)
-                }
-            })
 
         } else if (this.details) {
             this.destroyDetails()

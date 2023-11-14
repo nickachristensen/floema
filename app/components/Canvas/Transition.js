@@ -13,10 +13,6 @@ export default class {
         this.url = url
 
         this.geometry = new Plane(this.gl)
-        
-        this.createTexture()
-        this.createProgram()
-        this.createMesh()
     }
 
     createTexture () {
@@ -25,49 +21,75 @@ export default class {
         this.media = medias[index]
     }
 
-    createProgram () {
+    createProgram (texture) {
         this.program = new Program(this.gl, {
             fragment,
             vertex,
             uniforms: {
                 uAplha: { value: 1 },
-                tMap: { value: this.media.texture }
+                tMap: { value: texture }
             }
         })
     }
 
-    createMesh () {
+    createMesh (mesh) {
         this.mesh = new Mesh(this.gl, {
             geometry: this.geometry,
             program: this.program
         })
 
-        this.mesh.scale.x = this.media.mesh.scale.x
-        this.mesh.scale.y = this.media.mesh.scale.y
-        this.mesh.scale.z = this.media.mesh.scale.z
+        this.mesh.scale.x = mesh.scale.x
+        this.mesh.scale.y = mesh.scale.y
+        this.mesh.scale.z = mesh.scale.z
 
-        this.mesh.position.z = this.media.mesh.position.z + 0.01
+        this.mesh.position.x = mesh.position.x
+        this.mesh.position.y = mesh.position.y
+        this.mesh.position.z = mesh.position.z + 0.01
 
         this.mesh.setParent(this.scene)
     }
 
+    /* Element */
+    setElement (element) {
+        if (element.id === 'collections') {
+            const { index, medias } = this.collections
+            const media = medias[index]
+
+            this.createProgram(media.texture)
+            this.createMesh(media.mesh)
+
+            this.transition = 'detail'
+        } else {
+            this.createProgram(element.texture)
+            this.createMesh(element.mesh)
+
+            this.transition = 'collections'
+        }
+    }
 
     /* Animations */
-    anmateDetail () {
-        GSAP.to(this.mesh.scale, {
-            duration: 1.5,
-            ease: 'expo.inOut',
-            x: element.mesh.scale.x,
-            y: element.mesh.scale.y,
-            z: element.mesh.scale.z
-        })
+    animate (element, onComplete) {
+        if (this.transition === 'detail') {
+            const timeline = GSAP.timeline({
+                delay: 0.5,
+                onComplete
+            })
 
-        GSAP.to(this.mesh.position, {
-            duration: 1.5,
-            ease: 'expo.inOut',
-            x: element.mesh.position.x,
-            y: element.mesh.position.y,
-            z: element.mesh.position.z
-        })
+            timeline.to(this.mesh.scale, {
+                duration: 1.5,
+                ease: 'expo.inOut',      
+                x: element.scale.x,
+                y: element.scale.y,
+                z: element.scale.z
+            }, 0)
+
+            timeline.to(this.mesh.position, {
+                duration: 1.5,
+                ease: 'expo.inOut',
+                x: element.position.x,
+                y: element.position.y,
+                z: element.position.z
+            }, 0)
+        }
     }
 }

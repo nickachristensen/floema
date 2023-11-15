@@ -66,14 +66,28 @@ export default class {
     }
 
     /* Animations */
-    show () {
+   async show () {
         if (this.transition) {
-            this.transition.animate(this.medias[0].mesh, () => {
-                this.program.uniforms.uAlpha.value = 1
+            const { src } = this.transition.mesh.program.uniforms.tMap.vlaue.image
+            const texture = window.TEXTURES[src]
+            const media = this.medias.find(media => media.texture === texture)
+            
+            GSAP.delayedCall(1, () => {
+                this.scroll.current = this.scroll.target = this.scroll.last = this.scroll.start = -media.mesh.position.x
             })
-        }
 
-        map(this.medias, media => media.show())
+            this.transition.animate(this.medias[0].mesh, () => {
+                map(this.medias, media => {
+                    if (media !== this.media) {
+                        media.show()
+                    }
+                })
+
+                this.media.opacity.multiplier = 1
+            })
+        } else {
+            map(this.medias, media => media.show())
+        }
     }
 
     hide () {
@@ -130,6 +144,8 @@ export default class {
         })
 
         this.titlesElement.style[this.transformPrefix] = `translateY(-${25 * selectedCollection}%) translate(-50%, -50%) rotate(-90deg)`
+
+        this.media = this.medias[this.index]
     }
 
 

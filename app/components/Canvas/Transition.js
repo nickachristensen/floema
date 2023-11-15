@@ -73,10 +73,7 @@ export default class {
 
     /* Animations */
     animate (element, onComplete) {
-        const timeline = GSAP.timeline({
-            delay: 0.5,
-            onComplete
-        })
+        const timeline = GSAP.timeline()
 
         timeline.to(this.mesh.scale, {
             duration: 1.5,
@@ -103,7 +100,11 @@ export default class {
         }, 0)
 
         timeline.call(() => {
-            this.scene.removeChild(this.mesh)
+            onComplete()
         })
+
+        timeline.call(() => {
+            this.scene.removeChild(this.mesh)
+        }, null, '+=0.2')
     }
 }

@@ -152,17 +152,15 @@ export default class {
 
         this.scroll.last = this.scroll.current
 
-        map(this.medias, (media, index) => {
-            media.update(this.scroll.current)
-
-            media.mesh.position.y += Math.cos((media.mesh.position.x / this.sizes.width) * Math.PI * 0.1) * 40 - 40
-        })
-
-        const index = Math.floor(Math.abs(this.scroll.current / this.scroll.limit) * this.medias.length)
+        const index = Math.floor(Math.abs((this.scroll.current - (this.medias[0].bounds.width / 2 )) / this.scroll.limit) * (this.medias.length - 1))
 
         if (this.index !== index) {
             this.onChange(index)
         }
+
+        map(this.medias, (media, index) => {
+            media.update(this.scroll.current, this.index)
+        })
     }
 
     /* Destory */

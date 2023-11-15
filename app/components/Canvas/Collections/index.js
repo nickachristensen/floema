@@ -71,6 +71,7 @@ export default class {
             const { src } = this.transition.mesh.program.uniforms.tMap.vlaue.image
             const texture = window.TEXTURES[src]
             const media = this.medias.find(media => media.texture === texture)
+            const scroll = -media.bounds.left - media.bounds.width / 2 + wibdow.innerWidth / 2
             
             GSAP.delayedCall(1, () => {
                 this.scroll.current = this.scroll.target = this.scroll.last = this.scroll.start = -media.mesh.position.x
@@ -84,6 +85,8 @@ export default class {
                 })
 
                 this.media.opacity.multiplier = 1
+
+                this.scroll.current = this.scroll.target = this.scroll.start = this.scroll.last = scroll
             })
         } else {
             map(this.medias, media => media.show())

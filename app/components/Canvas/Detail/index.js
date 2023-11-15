@@ -68,14 +68,15 @@ export default class {
             })
         } else {
             GSAP.to(this.program.uniforms.uAlpha, {
-                duration: 1,
                 value: 1
             })
         }
     }
 
     hide () {
-
+        GSAP.to(this.program.uniforms.uAlpha, {
+            value: 0
+        })
     }
 
     /* Events */

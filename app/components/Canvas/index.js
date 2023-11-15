@@ -132,6 +132,10 @@ export default class Canvas {
         if (this.collections) {
             this.collections.hide()
         }
+
+        if (this.detail) {
+            this.detail.hide()
+        }
         
         if (this.home) {
             this.home.hide()
